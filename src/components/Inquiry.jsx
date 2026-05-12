@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Logo from './Logo'
+import { supabase } from '../lib/supabase'
 
 const products = [
   'Heritage Crest Tee (Off-White)',
@@ -32,9 +33,18 @@ export default function Inquiry({ prefilled, onClose }) {
 
   const set = (key, val) => setForm(f => ({ ...f, [key]: val }))
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO: wire up to Supabase / email / payment when ready
+    await supabase.from('ms_inquiries').insert({
+      name: form.name,
+      email: form.email,
+      instagram: form.instagram || null,
+      product: form.product,
+      size: form.size || null,
+      quantity: parseInt(form.quantity) || 1,
+      og_member: form.ogMember,
+      message: form.message || null,
+    })
     setSubmitted(true)
   }
 

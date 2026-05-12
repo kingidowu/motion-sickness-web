@@ -20,7 +20,7 @@ const products = [
     color: 'Off-White',
     drop: 100,
     details: ['Oversized', '280 GSM Cotton', 'Garment Washed'],
-    image: '/images/tee-heritage.jpg',
+    image: '/images/tee-heritage.png',
     placeholder: { bg: '#f0ebe0', text: '#1a1a1a' },
   },
   {
@@ -33,7 +33,7 @@ const products = [
     color: 'Vintage Black',
     drop: 100,
     details: ['Oversized', 'Heavyweight Cotton', 'Vintage Wash'],
-    image: '/images/tee-racing.jpg',
+    image: '/images/tee-racing.png',
     placeholder: { bg: '#1a1a1a', text: '#F2EFE4' },
   },
   {
@@ -46,7 +46,7 @@ const products = [
     color: 'Heather Grey',
     drop: 150,
     details: ['Oversized', 'Heavyweight Cotton'],
-    image: '/images/tee-houston.jpg',
+    image: '/images/tee-houston.png',
     placeholder: { bg: '#c9c9c9', text: '#132B57' },
   },
   {
@@ -59,7 +59,7 @@ const products = [
     color: 'Cream',
     drop: 100,
     details: ['Oversized', 'Heavyweight Cotton'],
-    image: '/images/tee-sailing.jpg',
+    image: '/images/tee-sailing.png',
     placeholder: { bg: '#F2EFE4', text: '#142B40' },
   },
   {
@@ -72,7 +72,7 @@ const products = [
     color: 'Charcoal Black',
     drop: 100,
     details: ['Wide Box Fit', '255 GSM', 'Garment Dyed'],
-    image: '/images/tee-property.jpg',
+    image: '/images/tee-property.png',
     placeholder: { bg: '#2a2a2a', text: '#ffffff' },
   },
   {
@@ -85,7 +85,7 @@ const products = [
     color: 'White / Red',
     drop: 150,
     details: ['Oversized', '250 GSM', 'Ringer Collar & Cuffs'],
-    image: '/images/tee-ringer.jpg',
+    image: '/images/tee-ringer.png',
     placeholder: { bg: '#ffffff', text: '#CC0000' },
   },
   {
@@ -98,7 +98,7 @@ const products = [
     color: 'Navy',
     drop: 55,
     details: ['100% Polyester', 'Sublimation Print'],
-    image: '/images/jersey-navy.jpg',
+    image: '/images/jersey-navy.png',
     placeholder: { bg: '#132B57', text: '#ffffff' },
   },
   {
@@ -111,7 +111,7 @@ const products = [
     color: 'Black / Red / Cream',
     drop: 55,
     details: ['100% Polyester', 'Sublimation Print'],
-    image: '/images/jersey-black.jpg',
+    image: '/images/jersey-black.png',
     placeholder: { bg: '#111111', text: '#F2EFE4' },
   },
   {
@@ -124,7 +124,7 @@ const products = [
     color: 'Cream / Green',
     drop: 55,
     details: ['100% Polyester', 'Sublimation Print'],
-    image: '/images/jersey-cream.jpg',
+    image: '/images/jersey-cream.png',
     placeholder: { bg: '#F2EFE4', text: '#1a3a1a' },
   },
   {
@@ -137,7 +137,7 @@ const products = [
     color: 'Cream',
     drop: 100,
     details: ['Ribbed Fabric', 'S55 Chest Logo'],
-    image: '/images/ladies-tank.jpg',
+    image: '/images/ladies-tank.png',
     placeholder: { bg: '#F2EFE4', text: '#CC0000' },
   },
   {
@@ -150,7 +150,7 @@ const products = [
     color: 'Multiple Colorways',
     drop: 100,
     details: ['High Performance', 'MS Logo Mark'],
-    image: '/images/athletic-set.jpg',
+    image: '/images/athletic-set.png',
     placeholder: { bg: '#1a1a1a', text: '#ffffff' },
   },
   {
@@ -164,7 +164,7 @@ const products = [
     color: 'Cream / Red Brim',
     drop: 55,
     details: ['Embroidered S55 Logo', 'OG Numbered'],
-    image: '/images/cap-og.jpg',
+    image: '/images/cap-og.png',
     placeholder: { bg: '#D4C5A0', text: '#1a1a1a' },
   },
 ]
