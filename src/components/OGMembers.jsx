@@ -107,23 +107,16 @@ export default function OGMembers({ onInquire }) {
           <div style={{
             background: '#D4C5A0',
             aspectRatio: '3/4',
-            display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center',
-            padding: '24px',
             position: 'relative',
+            overflow: 'hidden',
           }}>
+            <img src="/images/cap-og.png" alt="OG Cap" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             <div style={{
               position: 'absolute', top: '12px', left: '12px',
               background: 'var(--black)', color: 'var(--white)',
               padding: '3px 8px',
               fontSize: '8px', fontWeight: 700, letterSpacing: '2px',
             }}>OG CAP</div>
-            <Logo variant="mark" size={56} color="#1a1a1a" />
-            <p style={{
-              marginTop: '16px', fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: '12px', letterSpacing: '3px', color: '#1a1a1a',
-            }}>CREAM / RED BRIM</p>
-            <p style={{ fontSize: '9px', color: '#555', letterSpacing: '1px', marginTop: '4px' }}>S55 EMBROIDERED</p>
             <div style={{
               position: 'absolute', bottom: '12px', right: '12px',
               background: 'var(--red)', color: 'var(--white)',
@@ -136,23 +129,16 @@ export default function OGMembers({ onInquire }) {
           <div style={{
             background: '#F2EFE4',
             aspectRatio: '3/4',
-            display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center',
-            padding: '24px',
             position: 'relative',
+            overflow: 'hidden',
           }}>
+            <img src="/images/ladies-tank.png" alt="Ladies Tank Top" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             <div style={{
               position: 'absolute', top: '12px', left: '12px',
               background: 'var(--black)', color: 'var(--white)',
               padding: '3px 8px',
               fontSize: '8px', fontWeight: 700, letterSpacing: '2px',
             }}>LADIES TANK</div>
-            <Logo variant="s55" size={56} color="#CC0000" />
-            <p style={{
-              marginTop: '8px', fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: '12px', letterSpacing: '3px', color: '#1a1a1a',
-            }}>CREAM / BLACK</p>
-            <p style={{ fontSize: '9px', color: '#555', letterSpacing: '1px', marginTop: '4px' }}>FOR THE LADIES</p>
             <div style={{
               position: 'absolute', bottom: '12px', right: '12px',
               background: 'var(--red)', color: 'var(--white)',
