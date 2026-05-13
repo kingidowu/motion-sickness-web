@@ -35,7 +35,7 @@ export default function Inquiry({ prefilled, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await supabase.from('ms_inquiries').insert({
+    if (supabase) await supabase.from('ms_inquiries').insert({
       name: form.name,
       email: form.email,
       instagram: form.instagram || null,
@@ -46,6 +46,7 @@ export default function Inquiry({ prefilled, onClose }) {
       message: form.message || null,
     })
     setSubmitted(true)
+
   }
 
   const inputStyle = {
