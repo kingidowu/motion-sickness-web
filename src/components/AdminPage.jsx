@@ -78,6 +78,105 @@ function CampaignSender({ signups }) {
   )
 }
 
+const CARRIERS = ['USPS', 'UPS', 'FedEx', 'DHL', 'DHLExpress', 'Other']
+
+function ShipModal({ inquiry, onClose, onShipped }) {
+  const [tracking, setTracking] = useState('')
+  const [carrier, setCarrier] = useState('USPS')
+  const [eta, setEta] = useState('')
+  const [sending, setSending] = useState(false)
+  const [done, setDone] = useState(false)
+  const [err, setErr] = useState(null)
+
+  const inp = {
+    width: '100%', background: '#111', border: '1px solid #222', color: '#fff',
+    padding: '10px 12px', fontSize: '13px', fontFamily: "'Inter', sans-serif",
+    outline: 'none', boxSizing: 'border-box',
+  }
+
+  const submit = async () => {
+    if (!tracking) return
+    setSending(true)
+    setErr(null)
+    try {
+      const res = await fetch('/api/send-tracking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: inquiry.name,
+          email: inquiry.email,
+          product: inquiry.product,
+          trackingNumber: tracking,
+          carrier,
+          estimatedDelivery: eta || null,
+        }),
+      })
+      const data = await res.json()
+      if (data.error) throw new Error(data.error)
+      setDone(true)
+      onShipped(inquiry.id, { tracking, carrier })
+    } catch (e) {
+      setErr(e.message)
+    }
+    setSending(false)
+  }
+
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 999, background: 'rgba(0,0,0,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}
+      onClick={e => e.target === e.currentTarget && onClose()}>
+      <div style={{ background: '#0d0d0d', border: '1px solid #1e1e1e', maxWidth: '440px', width: '100%', padding: '36px' }}>
+        {done ? (
+          <div style={{ textAlign: 'center' }}>
+            <p style={{ fontSize: '28px', marginBottom: '12px' }}>✓</p>
+            <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '24px', letterSpacing: '3px', color: '#fff', marginBottom: '8px' }}>SHIPPED</p>
+            <p style={{ fontSize: '12px', color: '#888', marginBottom: '4px' }}>{inquiry.name} notified at {inquiry.email}</p>
+            <p style={{ fontSize: '11px', color: '#555', fontFamily: 'monospace', marginBottom: '24px' }}>{tracking}</p>
+            <button onClick={onClose} style={{ padding: '10px 28px', background: '#CC0000', color: '#fff', border: 'none', fontSize: '10px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer' }}>Done</button>
+          </div>
+        ) : (
+          <>
+            <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '4px', color: '#CC0000', textTransform: 'uppercase', marginBottom: '4px' }}>Mark as Shipped</p>
+            <p style={{ fontSize: '13px', color: '#fff', marginBottom: '4px', fontWeight: 600 }}>{inquiry.name}</p>
+            <p style={{ fontSize: '11px', color: '#555', marginBottom: '24px' }}>{inquiry.product}</p>
+
+            <div style={{ marginBottom: '14px' }}>
+              <p style={{ fontSize: '9px', color: '#555', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '6px' }}>Carrier</p>
+              <select value={carrier} onChange={e => setCarrier(e.target.value)}
+                style={{ ...inp, cursor: 'pointer' }}>
+                {CARRIERS.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <p style={{ fontSize: '9px', color: '#555', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '6px' }}>Tracking Number *</p>
+              <input style={{ ...inp, fontFamily: 'monospace', letterSpacing: '1px' }}
+                placeholder="e.g. 9400111899223397658538"
+                value={tracking} onChange={e => setTracking(e.target.value)} />
+            </div>
+
+            <div style={{ marginBottom: '24px' }}>
+              <p style={{ fontSize: '9px', color: '#555', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '6px' }}>Estimated Delivery (optional)</p>
+              <input style={inp} placeholder="e.g. May 16 – May 18"
+                value={eta} onChange={e => setEta(e.target.value)} />
+            </div>
+
+            {err && <p style={{ fontSize: '11px', color: '#CC0000', marginBottom: '12px' }}>Error: {err}</p>}
+
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button onClick={submit} disabled={!tracking || sending} style={{
+                flex: 1, padding: '12px', background: tracking ? '#CC0000' : '#222',
+                color: '#fff', border: 'none', fontSize: '10px', fontWeight: 700,
+                letterSpacing: '2px', textTransform: 'uppercase', cursor: tracking ? 'pointer' : 'not-allowed',
+              }}>{sending ? 'Sending...' : 'Send Tracking Email'}</button>
+              <button onClick={onClose} style={{ padding: '12px 16px', background: 'transparent', border: '1px solid #222', color: '#555', fontSize: '10px', cursor: 'pointer' }}>✕</button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
 export default function AdminPage() {
   const [authed, setAuthed] = useState(false)
   const [pw, setPw] = useState('')
@@ -87,6 +186,8 @@ export default function AdminPage() {
   const [inquiries, setInquiries] = useState([])
   const [tab, setTab] = useState('signups')
   const [loading, setLoading] = useState(false)
+  const [shipModal, setShipModal] = useState(null)
+  const [shippedMap, setShippedMap] = useState({})
 
   const login = () => {
     if (pw === ADMIN_PASSWORD) { setAuthed(true) }
@@ -131,6 +232,10 @@ export default function AdminPage() {
       supabase.removeChannel(inquirySub)
     }
   }, [authed])
+
+  const handleShipped = (id, info) => {
+    setShippedMap(prev => ({ ...prev, [id]: info }))
+  }
 
   const exportCSV = (data, filename) => {
     if (!data.length) return
@@ -187,6 +292,14 @@ export default function AdminPage() {
         </div>
       </div>
 
+      {shipModal && (
+        <ShipModal
+          inquiry={shipModal}
+          onClose={() => setShipModal(null)}
+          onShipped={handleShipped}
+        />
+      )}
+
       <div style={{ maxWidth: '1300px', margin: '0 auto', padding: '40px' }}>
         {loading ? (
           <p style={{ color: '#555', textAlign: 'center', padding: '80px', letterSpacing: '3px', textTransform: 'uppercase', fontSize: '11px' }}>Loading data...</p>
@@ -223,7 +336,7 @@ export default function AdminPage() {
                     {tab === 'signups' && ['Date', 'Name', 'Email', 'Phone', 'Instagram', 'Source'].map(h => (
                       <th key={h} style={{ padding: '10px 16px', textAlign: 'left', fontSize: '9px', fontWeight: 700, letterSpacing: '2px', color: '#555', textTransform: 'uppercase' }}>{h}</th>
                     ))}
-                    {tab === 'inquiries' && ['Date', 'Name', 'Email', 'Product', 'Size', 'Qty', 'OG Member'].map(h => (
+                    {tab === 'inquiries' && ['Date', 'Name', 'Email', 'Product', 'Size', 'Qty', 'OG Member', 'Status'].map(h => (
                       <th key={h} style={{ padding: '10px 16px', textAlign: 'left', fontSize: '9px', fontWeight: 700, letterSpacing: '2px', color: '#555', textTransform: 'uppercase' }}>{h}</th>
                     ))}
                     {tab === 'visitors' && ['Date/Time', 'Page', 'Referrer', 'Device'].map(h => (
@@ -246,19 +359,36 @@ export default function AdminPage() {
                       </td>
                     </tr>
                   ))}
-                  {tab === 'inquiries' && inquiries.map(r => (
-                    <tr key={r.id} style={{ borderBottom: '1px solid #111' }}>
-                      <td style={{ padding: '12px 16px', color: '#555' }}>{new Date(r.created_at).toLocaleDateString()}</td>
-                      <td style={{ padding: '12px 16px', color: '#fff', fontWeight: 500 }}>{r.name}</td>
-                      <td style={{ padding: '12px 16px', color: '#888' }}>{r.email}</td>
-                      <td style={{ padding: '12px 16px', color: '#888', maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.product}</td>
-                      <td style={{ padding: '12px 16px', color: '#888' }}>{r.size || '—'}</td>
-                      <td style={{ padding: '12px 16px', color: '#888' }}>{r.quantity}</td>
-                      <td style={{ padding: '12px 16px' }}>
-                        {r.og_member ? <span style={{ color: '#CC0000', fontWeight: 700, fontSize: '10px' }}>OG ✓</span> : <span style={{ color: '#333' }}>—</span>}
-                      </td>
-                    </tr>
-                  ))}
+                  {tab === 'inquiries' && inquiries.map(r => {
+                    const isShipped = shippedMap[r.id]
+                    return (
+                      <tr key={r.id} style={{ borderBottom: '1px solid #111' }}>
+                        <td style={{ padding: '12px 16px', color: '#555' }}>{new Date(r.created_at).toLocaleDateString()}</td>
+                        <td style={{ padding: '12px 16px', color: '#fff', fontWeight: 500 }}>{r.name}</td>
+                        <td style={{ padding: '12px 16px', color: '#888' }}>{r.email}</td>
+                        <td style={{ padding: '12px 16px', color: '#888', maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.product}</td>
+                        <td style={{ padding: '12px 16px', color: '#888' }}>{r.size || '—'}</td>
+                        <td style={{ padding: '12px 16px', color: '#888' }}>{r.quantity}</td>
+                        <td style={{ padding: '12px 16px' }}>
+                          {r.og_member ? <span style={{ color: '#CC0000', fontWeight: 700, fontSize: '10px' }}>OG ✓</span> : <span style={{ color: '#333' }}>—</span>}
+                        </td>
+                        <td style={{ padding: '12px 16px' }}>
+                          {isShipped ? (
+                            <span style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '1px', color: '#00cc44' }}>
+                              ✓ SHIPPED<br />
+                              <span style={{ color: '#444', fontFamily: 'monospace', fontSize: '9px' }}>{isShipped.carrier}</span>
+                            </span>
+                          ) : (
+                            <button onClick={() => setShipModal(r)} style={{
+                              padding: '5px 12px', background: 'transparent', border: '1px solid #CC0000',
+                              color: '#CC0000', fontSize: '9px', fontWeight: 700, letterSpacing: '1px',
+                              textTransform: 'uppercase', cursor: 'pointer', whiteSpace: 'nowrap',
+                            }}>Ship →</button>
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  })}
                   {tab === 'visitors' && visitors.map(r => (
                     <tr key={r.id} style={{ borderBottom: '1px solid #111' }}>
                       <td style={{ padding: '12px 16px', color: '#555' }}>{new Date(r.created_at).toLocaleString()}</td>
