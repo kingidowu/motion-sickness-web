@@ -79,7 +79,11 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end()
 
   const { segment, topic, recipients } = req.body
+  if (!topic || !recipients?.length) return res.status(400).json({ error: 'Missing topic or recipients' })
+  if (!process.env.ANTHROPIC_API_KEY) return res.status(500).json({ error: 'ANTHROPIC_API_KEY not set in Vercel environment variables' })
+  if (!process.env.RESEND_API_KEY) return res.status(500).json({ error: 'RESEND_API_KEY not set in Vercel environment variables' })
 
+  try {
   const copy = await client.messages.create({
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 600,
@@ -130,4 +134,8 @@ Respond as JSON: { "subject": "...", "html": "..." }`
 
   const sent = results.filter(r => r.status === 'fulfilled').length
   res.status(200).json({ sent, total: recipients.length, subject })
+  } catch (err) {
+    console.error('ai-campaign error:', err)
+    res.status(500).json({ error: err.message || 'Internal error' })
+  }
 }

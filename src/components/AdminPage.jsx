@@ -36,8 +36,9 @@ function CampaignSender({ signups }) {
         body: JSON.stringify({ segment, topic, recipients: segments[segment] }),
       })
       const data = await res.json()
-      setResult(data)
-    } catch { setResult({ error: 'Failed to send' }) }
+      if (!res.ok) setResult({ error: data.error || `Server error ${res.status}` })
+      else setResult(data)
+    } catch (e) { setResult({ error: e.message || 'Failed to reach API' }) }
     setSending(false)
   }
 
