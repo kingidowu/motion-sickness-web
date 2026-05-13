@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Logo from './Logo'
+import ProductViewer from './ProductViewer'
 
 const collections = [
   { id: 'all', label: 'All' },
@@ -171,6 +172,7 @@ const products = [
 
 function ProductCard({ product, onInquire }) {
   const [hovered, setHovered] = useState(false)
+  const images = product.images || [{ label: 'Front', image: product.image }, { label: 'Back', image: product.image }]
 
   return (
     <div
@@ -180,71 +182,43 @@ function ProductCard({ product, onInquire }) {
         background: 'var(--black-card)',
         border: `1px solid ${hovered ? '#2a2a2a' : 'var(--black-border)'}`,
         transition: 'border-color 0.25s',
-        overflow: 'hidden',
+        overflow: 'hidden', position: 'relative',
       }}
     >
+      {/* Tags */}
       <div style={{
-        aspectRatio: '4/5',
-        position: 'relative',
-        overflow: 'hidden',
-        background: product.placeholder.bg,
+        position: 'absolute', top: '14px', left: '14px', right: '14px',
+        zIndex: 10, display: 'flex', justifyContent: 'space-between', pointerEvents: 'none',
       }}>
-        <img
-          src={product.image}
-          alt={product.name}
-          onError={e => { e.target.style.display = 'none' }}
-          style={{
-            position: 'absolute', inset: 0,
-            width: '100%', height: '100%', objectFit: 'cover',
-            transform: hovered ? 'scale(1.05)' : 'scale(1)',
-            transition: 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-            zIndex: 1,
-          }}
-        />
-        <div style={{
-          position: 'absolute', inset: 0,
-          display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center',
-          background: product.placeholder.bg,
-          zIndex: 0,
-        }}>
-          <Logo variant="mark" size={52} color={product.placeholder.text} />
-          <p style={{
-            marginTop: '14px',
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: '11px', letterSpacing: '4px',
-            color: product.placeholder.text, opacity: 0.35,
-          }}>MOTION SICKNESS</p>
-        </div>
-
-        <div style={{
-          position: 'absolute', top: '14px', left: '14px',
+        <span style={{
           background: product.tag.includes('OG') ? 'var(--red)' : 'rgba(8,8,8,0.88)',
           color: 'var(--white)', padding: '4px 10px',
           fontSize: '7px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase',
-          zIndex: 2,
-        }}>{product.tag}</div>
-
-        <div style={{
-          position: 'absolute', top: '14px', right: '14px',
+        }}>{product.tag}</span>
+        <span style={{
           background: 'rgba(8,8,8,0.88)', color: '#888', padding: '4px 10px',
           fontSize: '7px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase',
-          zIndex: 2,
-        }}>{product.drop} PCS</div>
-
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'rgba(0,0,0,0.55)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          opacity: hovered ? 1 : 0, transition: 'opacity 0.3s', zIndex: 3,
-        }}>
-          <button onClick={() => onInquire(product)} style={{
-            background: 'var(--white)', color: 'var(--black)',
-            padding: '12px 32px', fontSize: '9px', fontWeight: 700,
-            letterSpacing: '3px', textTransform: 'uppercase', border: 'none', cursor: 'pointer',
-          }}>{product.ogFree ? 'Claim Free' : 'Order Now'}</button>
-        </div>
+        }}>{product.drop} PCS</span>
       </div>
+
+      {/* Hover buy overlay */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0,
+        height: 'calc(100% - 140px)',
+        background: 'rgba(0,0,0,0.45)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        opacity: hovered ? 1 : 0, transition: 'opacity 0.3s', zIndex: 8,
+        pointerEvents: hovered ? 'auto' : 'none',
+      }}>
+        <button onClick={() => onInquire(product)} style={{
+          background: 'var(--white)', color: 'var(--black)',
+          padding: '12px 32px', fontSize: '9px', fontWeight: 700,
+          letterSpacing: '3px', textTransform: 'uppercase', border: 'none', cursor: 'pointer',
+        }}>{product.ogFree ? 'Claim Free' : 'Order Now'}</button>
+      </div>
+
+      {/* 3D Viewer */}
+      <ProductViewer images={images} name={product.name} placeholder={product.placeholder} locked={false} />
 
       <div style={{ padding: '16px 18px' }}>
         <p style={{ fontSize: '8px', fontWeight: 600, letterSpacing: '2px', color: 'var(--grey)', textTransform: 'uppercase', marginBottom: '5px' }}>
@@ -345,6 +319,22 @@ export default function Products({ onInquire }) {
         {filtered.map(p => (
           <ProductCard key={p.id} product={p} onInquire={onInquire || (() => {})} />
         ))}
+      </div>
+
+      {/* Design Notice */}
+      <div style={{
+        maxWidth: '1400px', margin: '16px auto 0',
+        padding: '20px 24px',
+        border: '1px solid #161616',
+        background: '#080808',
+        display: 'flex', alignItems: 'flex-start', gap: '16px',
+      }}>
+        <span style={{ color: 'var(--red)', fontSize: '9px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', whiteSpace: 'nowrap', paddingTop: '2px' }}>Design Notice</span>
+        <p style={{ fontSize: '11px', color: '#444', lineHeight: 1.7 }}>
+          This product features original Motion Sickness by S55 artwork and brand identity.
+          Copying, reproducing, manufacturing, reselling, or commercially using this design
+          without written approval is prohibited.
+        </p>
       </div>
     </section>
   )

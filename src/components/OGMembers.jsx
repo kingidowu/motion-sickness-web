@@ -142,30 +142,6 @@ export default function OGMembers({ onInquire }) {
             }}>FREE 99</div>
           </div>
 
-          {/* Cap colorways */}
-          <div onClick={() => setLightbox({ image: '/images/cap-og.png', name: 'OG Members Cap — All Colorways' })} style={{
-            background: '#0d0d0d',
-            position: 'relative',
-            overflow: 'hidden',
-            cursor: 'zoom-in',
-            borderRadius: '2px',
-            marginTop: '2px',
-          }}>
-            <img src="/images/cap-og.png" alt="OG Members Cap — 5 Colorways" style={{ width: '100%', objectFit: 'cover', display: 'block' }} />
-            <div style={{
-              position: 'absolute', top: '12px', left: '12px',
-              background: 'var(--black)', color: 'var(--white)',
-              padding: '3px 8px',
-              fontSize: '8px', fontWeight: 700, letterSpacing: '2px',
-            }}>5 COLORWAYS</div>
-            <div style={{
-              position: 'absolute', bottom: '12px', left: '12px',
-              background: 'rgba(0,0,0,0.7)', color: 'var(--white)',
-              padding: '3px 8px',
-              fontSize: '8px', letterSpacing: '2px',
-            }}>OG MEMBERS CAP · 001</div>
-          </div>
-
           {/* Bottom tagline */}
           <div style={{
             background: 'var(--black-card)',

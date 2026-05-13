@@ -140,6 +140,21 @@ export default function Story() {
             ))}
           </div>
         </div>
+        {/* Brand Ownership */}
+        <div style={{
+          marginTop: '80px',
+          borderTop: '1px solid var(--black-border)',
+          paddingTop: '48px',
+        }}>
+          <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '3px', color: 'var(--red)', textTransform: 'uppercase', marginBottom: '16px' }}>
+            Brand Ownership
+          </p>
+          <p style={{ fontSize: '14px', color: '#666', lineHeight: 1.9, maxWidth: '640px' }}>
+            Motion Sickness is a brand by S55. All brand assets, product designs, campaign visuals,
+            logos, slogans, and original creative materials are owned by Motion Sickness by S55.
+          </p>
+        </div>
+
       </div>
 
       <style>{`

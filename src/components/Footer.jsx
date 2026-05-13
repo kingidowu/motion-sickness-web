@@ -1,5 +1,28 @@
 import Logo from './Logo'
 
+const navLinks = [
+  { label: 'Shop', href: '#shop' },
+  { label: 'About', href: '#story' },
+  { label: 'Contact', href: '#contact' },
+  { label: 'Sign In / Join', href: '/login' },
+  { label: 'Instagram', href: 'https://www.instagram.com/motionsickness.s55', external: true },
+]
+
+const policyLinks = [
+  { label: 'Shipping Policy', href: '/shipping-policy' },
+  { label: 'Refund Policy', href: '/refund-policy' },
+  { label: 'Privacy Policy', href: '/privacy-policy' },
+  { label: 'Terms of Service', href: '/terms' },
+  { label: 'Intellectual Property', href: '/intellectual-property' },
+  { label: 'Size Guide', href: '/size-guide' },
+]
+
+const linkStyle = {
+  display: 'block', marginBottom: '12px',
+  fontSize: '12px', color: '#888',
+  textDecoration: 'none', transition: 'color 0.2s',
+}
+
 export default function Footer() {
   return (
     <footer style={{
@@ -49,6 +72,22 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Official store notice */}
+      <div style={{
+        background: '#0a0a0a',
+        borderBottom: '1px solid var(--black-border)',
+        padding: '20px 40px',
+        textAlign: 'center',
+      }}>
+        <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '3px', color: '#444', textTransform: 'uppercase' }}>
+          Official Store Notice
+        </p>
+        <p style={{ fontSize: '11px', color: '#333', marginTop: '6px', lineHeight: 1.7 }}>
+          This is the official online store for Motion Sickness by S55. Any other website, seller, or page using our images,
+          logos, designs, or product content without permission is not authorized.
+        </p>
+      </div>
+
       {/* Main footer */}
       <div style={{
         maxWidth: '1200px', margin: '0 auto',
@@ -63,10 +102,15 @@ export default function Footer() {
           <div style={{ marginBottom: '24px' }}>
             <Logo variant="lockup" size={14} color="#ffffff" />
           </div>
-          <p style={{ color: '#666', fontSize: '12px', lineHeight: 1.9, maxWidth: '300px', marginBottom: '24px' }}>
+          <p style={{ color: '#666', fontSize: '12px', lineHeight: 1.9, maxWidth: '300px', marginBottom: '16px' }}>
             Motion Sickness is a limited drop clothing brand by S55 LLC.
             Sourced and produced through Flowsource. Houston, TX.
             29.7604° N · 95.3698° W
+          </p>
+          <p style={{ color: '#444', fontSize: '11px', lineHeight: 1.8, maxWidth: '320px', marginBottom: '24px' }}>
+            All logos, graphics, product images, designs, slogans, product names, and brand assets on this website
+            are owned by Motion Sickness by S55. No content may be copied, reproduced, modified, sold, or used
+            without written permission.
           </p>
           <a
             href="https://www.instagram.com/motionsickness.s55"
@@ -75,6 +119,7 @@ export default function Footer() {
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               fontSize: '10px', fontWeight: 700, letterSpacing: '2px',
               color: 'var(--red)', textTransform: 'uppercase',
+              textDecoration: 'none',
             }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -86,41 +131,37 @@ export default function Footer() {
           </a>
         </div>
 
-        {/* Links */}
+        {/* Navigate */}
         <div>
           <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '3px', color: 'var(--grey)', textTransform: 'uppercase', marginBottom: '20px' }}>
             Navigate
           </p>
-          {[
-            { label: 'Shop', href: '#shop' },
-            { label: 'OG Members', href: '#og-members' },
-            { label: 'Our Story', href: '#story' },
-            { label: 'Contact', href: '#contact' },
-          ].map(l => (
-            <a key={l.label} href={l.href} style={{
-              display: 'block', marginBottom: '12px',
-              fontSize: '12px', color: '#888',
-              transition: 'color 0.2s',
-            }}
-            onMouseEnter={e => e.target.style.color = '#fff'}
-            onMouseLeave={e => e.target.style.color = '#888'}
+          {navLinks.map(l => (
+            <a
+              key={l.label}
+              href={l.href}
+              target={l.external ? '_blank' : undefined}
+              rel={l.external ? 'noopener noreferrer' : undefined}
+              style={linkStyle}
+              onMouseEnter={e => e.target.style.color = '#fff'}
+              onMouseLeave={e => e.target.style.color = '#888'}
             >{l.label}</a>
           ))}
         </div>
 
-        {/* Info */}
+        {/* Legal */}
         <div>
           <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '3px', color: 'var(--grey)', textTransform: 'uppercase', marginBottom: '20px' }}>
-            Info
+            Legal
           </p>
-          {[
-            'Limited Drops Only',
-            'No Restocks',
-            'OG Members Free Cap',
-            'Sourced by Flowsource',
-            'Est. 2024 · Houston TX',
-          ].map(l => (
-            <p key={l} style={{ fontSize: '12px', color: '#555', marginBottom: '10px' }}>{l}</p>
+          {policyLinks.map(l => (
+            <a
+              key={l.label}
+              href={l.href}
+              style={linkStyle}
+              onMouseEnter={e => e.target.style.color = '#fff'}
+              onMouseLeave={e => e.target.style.color = '#888'}
+            >{l.label}</a>
           ))}
         </div>
       </div>
@@ -128,13 +169,18 @@ export default function Footer() {
       {/* Bottom bar */}
       <div style={{
         borderTop: '1px solid #111',
-        padding: '20px 40px',
+        padding: '24px 40px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         flexWrap: 'wrap', gap: '12px',
       }}>
-        <p style={{ fontSize: '10px', color: '#444', letterSpacing: '1px' }}>
-          © 2024 Motion Sickness by S55 LLC. All rights reserved.
-        </p>
+        <div>
+          <p style={{ fontSize: '11px', fontWeight: 600, color: '#555', letterSpacing: '1px', marginBottom: '4px' }}>
+            Official Motion Sickness by S55 Store
+          </p>
+          <p style={{ fontSize: '10px', color: '#333', letterSpacing: '1px' }}>
+            © 2026 Motion Sickness by S55. All rights reserved.
+          </p>
+        </div>
         <p style={{ fontSize: '10px', color: '#444', letterSpacing: '2px', textTransform: 'uppercase' }}>
           Discipline Fuels Freedom
         </p>

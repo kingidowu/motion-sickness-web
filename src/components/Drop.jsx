@@ -1,99 +1,106 @@
 import { useState } from 'react'
+import ProductViewer, { useProductImages } from './ProductViewer'
 
 const UNLOCK_PASSWORD = '007'
+
+const CAP_ANGLES = (img) => [
+  { label: 'Front',      image: img },
+  { label: 'Left Side',  image: img },
+  { label: 'Right Side', image: img },
+  { label: 'Back',       image: img },
+]
+
+const TEE_ANGLES = (img) => [
+  { label: 'Front', image: img },
+  { label: 'Back',  image: img },
+]
 
 const items = [
   {
     id: 1, name: 'Core Tee', tag: 'DROP 001',
-    price: 75, image: '/images/tee-heritage.png',
+    price: 75,
+    images: TEE_ANGLES('/images/tee-heritage.png'),
     desc: 'Built for movement, presence, and everyday wear.',
     placeholder: { bg: '#f0ebe0', text: '#1a1a1a' },
     locked: false,
   },
   {
     id: 2, name: 'World Championship Tee', tag: 'DROP 001',
-    price: 80, image: '/images/tee-racing.png',
+    price: 80,
+    images: TEE_ANGLES('/images/tee-racing.png'),
     desc: 'Motion Sickness identity. S55 Racing detail.',
     placeholder: { bg: '#1a1a1a', text: '#F2EFE4' },
     locked: false,
   },
   {
     id: 3, name: 'Houston Collegiate Tee', tag: 'DROP 001',
-    price: 70, image: '/images/tee-houston.png',
+    price: 70,
+    images: TEE_ANGLES('/images/tee-houston.png'),
     desc: 'Move With Motion. Designed in Houston.',
     placeholder: { bg: '#c9c9c9', text: '#132B57' },
     locked: true,
   },
   {
     id: 4, name: 'Sailing Club Tee', tag: 'DROP 001',
-    price: 75, image: '/images/tee-sailing.png',
+    price: 75,
+    images: TEE_ANGLES('/images/tee-sailing.png'),
     desc: 'Members In Motion. 29.7604° N · 95.3698° W.',
     placeholder: { bg: '#F2EFE4', text: '#142B40' },
     locked: true,
   },
   {
     id: 5, name: 'Property Of MS Tee', tag: 'DROP 001',
-    price: 85, image: '/images/tee-property.png',
+    price: 85,
+    images: TEE_ANGLES('/images/tee-property.png'),
     desc: 'Property of Motion Sickness. Studio 55.',
     placeholder: { bg: '#2a2a2a', text: '#ffffff' },
     locked: true,
   },
   {
     id: 6, name: 'Ringer Tee', tag: 'DROP 001',
-    price: 65, image: '/images/tee-ringer.png',
+    price: 65,
+    images: TEE_ANGLES('/images/tee-ringer.png'),
     desc: 'Clean. Bold. Motion Sickness by S55.',
     placeholder: { bg: '#ffffff', text: '#CC0000' },
     locked: true,
   },
+  {
+    id: 7, name: 'S55 Cap — All Black', tag: 'DROP 001',
+    productId: 'cap-all-black',
+    price: 55,
+    images: CAP_ANGLES('/images/cap-og.png'),
+    desc: 'All black. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #001.',
+    placeholder: { bg: '#111111', text: '#ffffff' },
+    locked: false,
+  },
+  {
+    id: 8, name: 'S55 Cap — Cream / Red', tag: 'DROP 001',
+    productId: 'cap-cream-red',
+    price: 55,
+    images: CAP_ANGLES('/images/cap-og.png'),
+    desc: 'Cream crown, red brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #025.',
+    placeholder: { bg: '#D4C5A0', text: '#1a1a1a' },
+    locked: false,
+  },
+  {
+    id: 9, name: 'S55 Cap — Navy / Red', tag: 'DROP 001',
+    productId: 'cap-navy-red',
+    price: 55,
+    images: CAP_ANGLES('/images/cap-og.png'),
+    desc: 'Navy crown, red brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #050.',
+    placeholder: { bg: '#132B57', text: '#ffffff' },
+    locked: false,
+  },
+  {
+    id: 10, name: 'S55 Cap — Olive / Black', tag: 'DROP 001',
+    productId: 'cap-olive-black',
+    price: 55,
+    images: CAP_ANGLES('/images/cap-og.png'),
+    desc: 'Olive crown, black brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #100.',
+    placeholder: { bg: '#4a5240', text: '#ffffff' },
+    locked: false,
+  },
 ]
-
-function Lightbox({ image, name, onClose }) {
-  const [scale, setScale] = useState(1)
-
-  return (
-    <div
-      onClick={onClose}
-      style={{
-        position: 'fixed', inset: 0, zIndex: 1000,
-        background: 'rgba(0,0,0,0.95)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        cursor: 'zoom-out',
-      }}
-    >
-      <button
-        onClick={onClose}
-        style={{
-          position: 'absolute', top: '24px', right: '32px',
-          background: 'none', border: 'none', color: '#fff',
-          fontSize: '28px', cursor: 'pointer', lineHeight: 1, zIndex: 2,
-        }}
-      >✕</button>
-
-      <div style={{ position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '12px', zIndex: 2 }}>
-        <button
-          onClick={e => { e.stopPropagation(); setScale(s => Math.max(1, s - 0.5)) }}
-          style={{ background: '#222', border: '1px solid #333', color: '#fff', width: '36px', height: '36px', fontSize: '18px', cursor: 'pointer' }}
-        >−</button>
-        <button
-          onClick={e => { e.stopPropagation(); setScale(s => Math.min(3, s + 0.5)) }}
-          style={{ background: '#222', border: '1px solid #333', color: '#fff', width: '36px', height: '36px', fontSize: '18px', cursor: 'pointer' }}
-        >+</button>
-      </div>
-
-      <img
-        src={image} alt={name}
-        onClick={e => e.stopPropagation()}
-        style={{
-          maxWidth: '90vw', maxHeight: '90vh',
-          objectFit: 'contain',
-          transform: `scale(${scale})`,
-          transition: 'transform 0.2s ease',
-          cursor: scale > 1 ? 'grab' : 'default',
-        }}
-      />
-    </div>
-  )
-}
 
 function PasswordModal({ item, onUnlock, onClose }) {
   const [value, setValue] = useState('')
@@ -115,43 +122,33 @@ function PasswordModal({ item, onUnlock, onClose }) {
       style={{
         position: 'fixed', inset: 0, zIndex: 1000,
         background: 'rgba(0,0,0,0.92)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        padding: '24px',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px',
       }}
     >
-      <div
-        onClick={e => e.stopPropagation()}
-        style={{
-          background: '#0d0d0d', border: `1px solid ${error ? 'var(--red)' : '#1e1e1e'}`,
-          padding: '48px 40px', maxWidth: '400px', width: '100%', textAlign: 'center',
-          transition: 'border-color 0.2s',
-        }}
-      >
+      <div onClick={e => e.stopPropagation()} style={{
+        background: '#0d0d0d', border: `1px solid ${error ? 'var(--red)' : '#1e1e1e'}`,
+        padding: '48px 40px', maxWidth: '400px', width: '100%', textAlign: 'center',
+        transition: 'border-color 0.2s',
+      }}>
         <div style={{ fontSize: '28px', marginBottom: '16px' }}>🔒</div>
         <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '22px', letterSpacing: '4px', color: '#fff', marginBottom: '8px' }}>
           MEMBERS ONLY
         </p>
-        <p style={{ fontSize: '11px', color: '#555', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '8px' }}>
-          {item.name}
-        </p>
+        <p style={{ fontSize: '11px', color: '#555', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '8px' }}>{item.name}</p>
         <p style={{ fontSize: '12px', color: '#666', marginBottom: '32px', lineHeight: 1.7 }}>
           This piece is reserved. Enter your access code to unlock it.
         </p>
         <input
-          autoFocus
-          type="password"
-          value={value}
+          autoFocus type="password" value={value}
           onChange={e => setValue(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && attempt()}
           placeholder="Access code"
           style={{
             width: '100%', background: '#111',
             border: `1px solid ${error ? 'var(--red)' : '#222'}`,
-            color: '#fff', padding: '12px 14px',
-            fontSize: '16px', letterSpacing: '6px',
+            color: '#fff', padding: '12px 14px', fontSize: '16px', letterSpacing: '6px',
             textAlign: 'center', fontFamily: "'Inter', sans-serif",
-            outline: 'none', marginBottom: '12px',
-            transition: 'border-color 0.2s',
+            outline: 'none', marginBottom: '12px', transition: 'border-color 0.2s',
           }}
         />
         {error && (
@@ -159,47 +156,29 @@ function PasswordModal({ item, onUnlock, onClose }) {
             Invalid code
           </p>
         )}
-        <button
-          onClick={attempt}
-          style={{
-            width: '100%', padding: '13px',
-            background: 'var(--red)', color: '#fff', border: 'none',
-            fontSize: '10px', fontWeight: 700, letterSpacing: '3px',
-            textTransform: 'uppercase', cursor: 'pointer',
-          }}
-        >Unlock</button>
-        <button
-          onClick={onClose}
-          style={{
-            marginTop: '12px', background: 'none', border: 'none',
-            color: '#555', fontSize: '10px', letterSpacing: '2px',
-            textTransform: 'uppercase', cursor: 'pointer',
-          }}
-        >Cancel</button>
+        <button onClick={attempt} style={{
+          width: '100%', padding: '13px', background: 'var(--red)', color: '#fff', border: 'none',
+          fontSize: '10px', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', cursor: 'pointer',
+        }}>Unlock</button>
+        <button onClick={onClose} style={{
+          marginTop: '12px', background: 'none', border: 'none',
+          color: '#555', fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer',
+        }}>Cancel</button>
       </div>
     </div>
   )
 }
 
-function DropCard({ item, isUnlocked, onInquire, onLightbox, onUnlock }) {
+function DropCard({ item, isUnlocked, onInquire, onUnlock }) {
   const [hovered, setHovered] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const locked = item.locked && !isUnlocked
-
-  const handleImageClick = () => {
-    if (locked) {
-      setShowPassword(true)
-    } else {
-      onLightbox(item)
-    }
-  }
+  const dbImages = useProductImages(item.productId)
+  const images = dbImages || item.images
 
   const handleBuy = () => {
-    if (locked) {
-      setShowPassword(true)
-    } else {
-      onInquire(item)
-    }
+    if (locked) setShowPassword(true)
+    else onInquire(item)
   }
 
   return (
@@ -211,86 +190,70 @@ function DropCard({ item, isUnlocked, onInquire, onLightbox, onUnlock }) {
           background: 'var(--black-card)',
           border: `1px solid ${hovered ? '#333' : '#161616'}`,
           transition: 'border-color 0.25s',
-          overflow: 'hidden',
-          position: 'relative',
+          overflow: 'hidden', position: 'relative',
         }}
       >
-        {/* Image area */}
-        <div
-          onClick={handleImageClick}
-          style={{
-            aspectRatio: '4/5', position: 'relative', overflow: 'hidden',
-            background: item.placeholder.bg, cursor: locked ? 'pointer' : 'zoom-in',
-          }}
-        >
-          <img
-            src={item.image} alt={item.name}
-            onError={e => e.target.style.display = 'none'}
-            style={{
-              position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-              transform: hovered ? 'scale(1.05)' : 'scale(1)', zIndex: 1,
-              filter: locked ? 'blur(6px) brightness(0.4)' : 'none',
-              transition: 'transform 0.6s ease, filter 0.4s ease',
-            }}
-          />
-          <div style={{
-            position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            background: item.placeholder.bg, zIndex: 0,
-          }}>
-            <p style={{ fontFamily: "'Bebas Neue'", fontSize: '11px', letterSpacing: '4px', color: item.placeholder.text, opacity: 0.3 }}>MOTION SICKNESS</p>
-          </div>
-
-          {/* Tags */}
-          <div style={{
-            position: 'absolute', top: '12px', left: '12px', zIndex: 2,
+        {/* Tags row */}
+        <div style={{
+          position: 'absolute', top: '12px', left: '12px', right: '12px',
+          zIndex: 10, display: 'flex', justifyContent: 'space-between', pointerEvents: 'none',
+        }}>
+          <span style={{
             background: 'rgba(8,8,8,0.9)', color: '#fff',
             padding: '3px 10px', fontSize: '7px', fontWeight: 700, letterSpacing: '2px',
-          }}>{item.tag}</div>
-
+          }}>{item.tag}</span>
           {locked ? (
-            <div style={{
-              position: 'absolute', top: '12px', right: '12px', zIndex: 2,
+            <span style={{
               background: '#111', color: '#888', border: '1px solid #333',
               padding: '3px 10px', fontSize: '7px', fontWeight: 700, letterSpacing: '2px',
-            }}>LOCKED</div>
+            }}>LOCKED</span>
           ) : (
-            <div style={{
-              position: 'absolute', top: '12px', right: '12px', zIndex: 2,
+            <span style={{
               background: 'var(--red)', color: '#fff',
               padding: '3px 10px', fontSize: '7px', fontWeight: 700, letterSpacing: '2px',
-            }}>LIMITED</div>
-          )}
-
-          {/* Lock overlay */}
-          {locked ? (
-            <div style={{
-              position: 'absolute', inset: 0, zIndex: 3,
-              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '10px',
-            }}>
-              <div style={{ fontSize: '32px' }}>🔒</div>
-              <p style={{
-                fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: '11px', letterSpacing: '4px', color: '#aaa',
-                textTransform: 'uppercase',
-              }}>Members Only</p>
-              <p style={{ fontSize: '9px', color: '#666', letterSpacing: '2px', textTransform: 'uppercase' }}>
-                Enter access code
-              </p>
-            </div>
-          ) : (
-            <div style={{
-              position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              opacity: hovered ? 1 : 0, transition: 'opacity 0.3s', zIndex: 3,
-            }}>
-              <button onClick={e => { e.stopPropagation(); onInquire(item) }} style={{
-                background: '#fff', color: '#000', padding: '12px 32px',
-                fontSize: '9px', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase',
-                border: 'none', cursor: 'pointer',
-              }}>Buy from Drop 001</button>
-            </div>
+            }}>LIMITED</span>
           )}
         </div>
+
+        {/* Lock overlay */}
+        {locked && (
+          <div style={{
+            position: 'absolute', inset: 0, zIndex: 9,
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '10px',
+            background: 'rgba(0,0,0,0.55)',
+            cursor: 'pointer',
+          }} onClick={() => setShowPassword(true)}>
+            <div style={{ fontSize: '32px' }}>🔒</div>
+            <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '11px', letterSpacing: '4px', color: '#aaa', textTransform: 'uppercase' }}>Members Only</p>
+            <p style={{ fontSize: '9px', color: '#666', letterSpacing: '2px', textTransform: 'uppercase' }}>Enter access code</p>
+          </div>
+        )}
+
+        {/* 3D Product Viewer */}
+        <ProductViewer
+          images={images}
+          name={item.name}
+          placeholder={item.placeholder}
+          locked={locked}
+        />
+
+        {/* Hover buy overlay — only when unlocked */}
+        {!locked && (
+          <div style={{
+            position: 'absolute', top: 0, left: 0, right: 0,
+            height: 'calc(100% - 120px)',
+            background: 'rgba(0,0,0,0.45)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            opacity: hovered ? 1 : 0, transition: 'opacity 0.3s', zIndex: 8,
+            pointerEvents: hovered ? 'auto' : 'none',
+          }}>
+            <button onClick={e => { e.stopPropagation(); onInquire(item) }} style={{
+              background: '#fff', color: '#000', padding: '12px 32px',
+              fontSize: '9px', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase',
+              border: 'none', cursor: 'pointer',
+            }}>Buy from Drop 001</button>
+          </div>
+        )}
 
         {/* Card body */}
         <div style={{ padding: '18px' }}>
@@ -313,16 +276,11 @@ function DropCard({ item, isUnlocked, onInquire, onLightbox, onUnlock }) {
               background: locked ? '#0a0a0a' : 'transparent',
               border: `1px solid ${locked ? '#222' : '#2a2a2a'}`,
               color: locked ? '#555' : '#fff',
-              fontSize: '9px', fontWeight: 700,
-              letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer',
-              transition: 'all 0.2s',
+              fontSize: '9px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase',
+              cursor: 'pointer', transition: 'all 0.2s',
             }}
-            onMouseEnter={e => {
-              if (!locked) { e.target.style.background = '#fff'; e.target.style.color = '#000' }
-            }}
-            onMouseLeave={e => {
-              if (!locked) { e.target.style.background = 'transparent'; e.target.style.color = '#fff' }
-            }}
+            onMouseEnter={e => { if (!locked) { e.target.style.background = '#fff'; e.target.style.color = '#000' } }}
+            onMouseLeave={e => { if (!locked) { e.target.style.background = 'transparent'; e.target.style.color = '#fff' } }}
           >{locked ? '🔒 Enter Access Code' : 'Buy from Drop 001'}</button>
         </div>
       </div>
@@ -339,16 +297,13 @@ function DropCard({ item, isUnlocked, onInquire, onLightbox, onUnlock }) {
 }
 
 export default function Drop({ onInquire }) {
-  const [lightbox, setLightbox] = useState(null)
   const [unlockedIds, setUnlockedIds] = useState([])
-
   const unlock = (id) => setUnlockedIds(prev => [...prev, id])
 
   return (
     <section id="drop" className="section-pad" style={{ background: 'var(--black)', padding: '100px 40px', borderTop: '1px solid #111' }}>
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
-        {/* Drop header */}
         <div style={{ textAlign: 'center', marginBottom: '64px' }}>
           <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '5px', color: 'var(--red)', textTransform: 'uppercase', marginBottom: '16px' }}>
             Now Available
@@ -377,7 +332,6 @@ export default function Drop({ onInquire }) {
           </div>
         </div>
 
-        {/* Product grid */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
@@ -389,13 +343,11 @@ export default function Drop({ onInquire }) {
               item={item}
               isUnlocked={unlockedIds.includes(item.id)}
               onInquire={onInquire || (() => {})}
-              onLightbox={setLightbox}
               onUnlock={unlock}
             />
           ))}
         </div>
 
-        {/* Bottom notice */}
         <div style={{
           marginTop: '48px', textAlign: 'center',
           padding: '24px', border: '1px solid #1a1a1a',
@@ -405,11 +357,20 @@ export default function Drop({ onInquire }) {
             Once Drop 001 sells out — the next drop is 2 months away. No exceptions.
           </p>
         </div>
-      </div>
 
-      {lightbox && (
-        <Lightbox image={lightbox.image} name={lightbox.name} onClose={() => setLightbox(null)} />
-      )}
+        <div style={{
+          marginTop: '16px', padding: '20px 24px',
+          border: '1px solid #161616', background: '#080808',
+          display: 'flex', alignItems: 'flex-start', gap: '16px',
+        }}>
+          <span style={{ color: 'var(--red)', fontSize: '9px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', whiteSpace: 'nowrap', paddingTop: '2px' }}>Design Notice</span>
+          <p style={{ fontSize: '11px', color: '#444', lineHeight: 1.7 }}>
+            This product features original Motion Sickness by S55 artwork and brand identity.
+            Copying, reproducing, manufacturing, reselling, or commercially using this design
+            without written approval is prohibited.
+          </p>
+        </div>
+      </div>
     </section>
   )
 }

@@ -11,6 +11,11 @@ import Inquiry from './components/Inquiry'
 import SignupPopup from './components/SignupPopup'
 import AdminPage from './components/AdminPage'
 import AIStylist from './components/AIStylist'
+import IntellectualProperty from './components/IntellectualProperty'
+import TermsOfService from './components/TermsOfService'
+import PolicyPage from './components/PolicyPage'
+import MemberAuth from './components/MemberAuth'
+import MemberProfile from './components/MemberProfile'
 import { supabase } from './lib/supabase'
 
 function useVisitorTracking() {
@@ -28,8 +33,14 @@ export default function App() {
   const [inquiryItem, setInquiryItem] = useState(null)
   useVisitorTracking()
 
-  if (window.location.pathname === '/admin') {
-    return <AdminPage />
+  if (window.location.pathname === '/admin') return <AdminPage />
+  if (window.location.pathname === '/intellectual-property') return <IntellectualProperty />
+  if (window.location.pathname === '/terms') return <TermsOfService />
+  if (window.location.pathname === '/login' || window.location.pathname === '/signup') return <MemberAuth />
+  if (window.location.pathname === '/profile') return <MemberProfile />
+  const policyPaths = ['/shipping-policy', '/refund-policy', '/privacy-policy', '/size-guide']
+  if (policyPaths.includes(window.location.pathname)) {
+    return <PolicyPage path={window.location.pathname} />
   }
 
   return (

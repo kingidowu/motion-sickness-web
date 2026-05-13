@@ -1,9 +1,20 @@
 import { useState, useEffect } from 'react'
 import Logo from './Logo'
+import { supabase } from '../lib/supabase'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [authedUser, setAuthedUser] = useState(null)
+
+  useEffect(() => {
+    if (!supabase) return
+    supabase.auth.getUser().then(({ data: { user } }) => setAuthedUser(user))
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setAuthedUser(session?.user || null)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -55,11 +66,7 @@ export default function Nav() {
           <a
             href="https://www.instagram.com/motionsickness.s55"
             target="_blank" rel="noopener noreferrer"
-            style={{
-              fontSize: '10px', fontWeight: 600, letterSpacing: '2px',
-              textTransform: 'uppercase', color: 'var(--red)',
-              display: 'flex', alignItems: 'center', gap: '6px',
-            }}
+            style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--red)', display: 'flex', alignItems: 'center', gap: '6px' }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -68,6 +75,17 @@ export default function Nav() {
             </svg>
             @motionsickness.s55
           </a>
+          <a href={authedUser ? '/profile' : '/login'} style={{
+            padding: '8px 18px',
+            background: authedUser ? 'transparent' : 'var(--red)',
+            border: authedUser ? '1px solid #333' : 'none',
+            color: '#fff',
+            fontSize: '9px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase',
+            textDecoration: 'none', transition: 'all 0.2s',
+          }}
+          onMouseEnter={e => { if (!authedUser) e.currentTarget.style.background = 'var(--red-dark)' }}
+          onMouseLeave={e => { if (!authedUser) e.currentTarget.style.background = 'var(--red)' }}
+          >{authedUser ? 'My Account' : 'Sign In'}</a>
         </div>
 
         {/* Mobile hamburger */}
@@ -100,6 +118,10 @@ export default function Nav() {
           <a href="https://www.instagram.com/motionsickness.s55" target="_blank" rel="noopener noreferrer"
             style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--red)' }}>
             @motionsickness.s55
+          </a>
+          <a href={authedUser ? '/profile' : '/login'}
+            style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '3px', textTransform: 'uppercase', color: '#fff', textDecoration: 'none' }}>
+            {authedUser ? 'My Account' : 'Sign In / Join'}
           </a>
         </div>
       )}
