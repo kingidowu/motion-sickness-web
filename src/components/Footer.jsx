@@ -64,8 +64,8 @@ export default function Footer() {
             <Logo variant="lockup" size={14} color="#ffffff" />
           </div>
           <p style={{ color: '#666', fontSize: '12px', lineHeight: 1.9, maxWidth: '300px', marginBottom: '24px' }}>
-            Motion Sickness is a limited drop clothing brand by S55 Ventures.
-            Sourced and produced through SourceFlow. Houston, TX.
+            Motion Sickness is a limited drop clothing brand by S55 LLC.
+            Sourced and produced through Flowsource. Houston, TX.
             29.7604° N · 95.3698° W
           </p>
           <a
@@ -117,7 +117,7 @@ export default function Footer() {
             'Limited Drops Only',
             'No Restocks',
             'OG Members Free Cap',
-            'Sourced by SourceFlow',
+            'Sourced by Flowsource',
             'Est. 2024 · Houston TX',
           ].map(l => (
             <p key={l} style={{ fontSize: '12px', color: '#555', marginBottom: '10px' }}>{l}</p>
@@ -133,7 +133,7 @@ export default function Footer() {
         flexWrap: 'wrap', gap: '12px',
       }}>
         <p style={{ fontSize: '10px', color: '#444', letterSpacing: '1px' }}>
-          © 2024 Motion Sickness by S55 Ventures. All rights reserved.
+          © 2024 Motion Sickness by S55 LLC. All rights reserved.
         </p>
         <p style={{ fontSize: '10px', color: '#444', letterSpacing: '2px', textTransform: 'uppercase' }}>
           Discipline Fuels Freedom

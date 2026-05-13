@@ -8,13 +8,13 @@ const timeline = [
   },
   {
     step: '02',
-    label: 'S55 Ventures',
-    text: "S55 Ventures built SourceFlow — a sourcing platform that connects ideas to factories. Motion Sickness is the brand that proves the system works. We wear what we build.",
+    label: 'S55 LLC',
+    text: "S55 LLC built Flowsource — a sourcing platform that connects ideas to factories. Motion Sickness is the brand that proves the system works. We wear what we build.",
   },
   {
     step: '03',
-    label: 'Sourced by SourceFlow',
-    text: "Every piece you see was designed, sourced, and produced through SourceFlow. From artwork to factory, we control the full pipeline — which is why the quality hits different.",
+    label: 'Sourced by Flowsource',
+    text: "Every piece you see was designed, sourced, and produced through Flowsource. From artwork to factory, we control the full pipeline — which is why the quality hits different.",
   },
   {
     step: '04',
@@ -48,7 +48,7 @@ export default function Story() {
           <div>
             <p style={{ color: '#888', fontSize: '14px', lineHeight: 1.9, marginBottom: '20px' }}>
               Most brands design and hope for the best. We built the infrastructure first —
-              then made the clothes. SourceFlow handles the entire pipeline from artwork
+              then made the clothes. Flowsource handles the entire pipeline from artwork
               to your hands.
             </p>
             <div style={{ display: 'flex', gap: '24px' }}>
@@ -126,7 +126,7 @@ export default function Story() {
             <p style={{
               fontFamily: "'Bebas Neue', sans-serif",
               fontSize: '32px', letterSpacing: '4px', color: 'var(--white)',
-            }}>SOURCEFLOW by S55</p>
+            }}>FLOWSOURCE by S55 LLC</p>
             <p style={{ fontSize: '12px', color: 'var(--grey)', marginTop: '4px' }}>
               Full-stack product sourcing — from idea to factory to your door.
             </p>
