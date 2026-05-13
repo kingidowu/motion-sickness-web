@@ -45,6 +45,13 @@ export default function Inquiry({ prefilled, onClose }) {
       og_member: form.ogMember,
       message: form.message || null,
     })
+    await fetch('/api/send-inquiry', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: form.name, email: form.email, product: form.product,
+        size: form.size, quantity: form.quantity, ogMember: form.ogMember, message: form.message,
+      }),
+    }).catch(() => {})
     setSubmitted(true)
 
   }
