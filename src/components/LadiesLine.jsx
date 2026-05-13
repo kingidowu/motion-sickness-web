@@ -65,8 +65,8 @@ function LadiesCard({ item, isUnlocked, onInquire, onUnlock }) {
   const handleBuy = () => locked ? setShowPassword(true) : onInquire(item)
 
   const images = item.isSet
-    ? [{ label: 'Bra', image: item.image }, { label: 'Leggings', image: item.image2 }]
-    : [{ label: 'Front', image: item.image }, { label: 'Back', image: item.image }]
+    ? [{ label: 'Bra', image: item.image }, { label: 'Leggings', image: item.image2 }, { label: 'Packaging', image: '/images/packaging-ladies.png' }]
+    : [{ label: 'Front', image: item.image }, { label: 'Back', image: item.image }, { label: 'Packaging', image: '/images/packaging-ladies.png' }]
 
   return (
     <>

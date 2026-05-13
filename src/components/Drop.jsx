@@ -11,8 +11,9 @@ const CAP_ANGLES = (img) => [
 ]
 
 const TEE_ANGLES = (img) => [
-  { label: 'Front', image: img },
-  { label: 'Back',  image: img },
+  { label: 'Front',     image: img },
+  { label: 'Back',      image: img },
+  { label: 'Packaging', image: '/images/packaging-tee.png' },
 ]
 
 const items = [
@@ -68,8 +69,9 @@ const items = [
     id: 7, name: 'S55 Cap — All Black', tag: 'DROP 001',
     price: 105,
     images: [
-      { label: 'Sides', image: '/images/cap-all-black-sides.png' },
+      { label: 'Sides',     image: '/images/cap-all-black-sides.png' },
       { label: 'All Views', image: '/images/cap-all-black-views.png' },
+      { label: 'Packaging', image: '/images/packaging-cap.png' },
     ],
     desc: 'All black. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #001.',
     placeholder: { bg: '#111111', text: '#ffffff' },
@@ -79,8 +81,9 @@ const items = [
     id: 8, name: 'S55 Cap — Cream / Red', tag: 'DROP 001',
     price: 105,
     images: [
-      { label: 'Sides', image: '/images/cap-cream-red-sides.png' },
+      { label: 'Sides',     image: '/images/cap-cream-red-sides.png' },
       { label: 'All Views', image: '/images/cap-cream-red-views.png' },
+      { label: 'Packaging', image: '/images/packaging-cap.png' },
     ],
     desc: 'Cream crown, red brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #025.',
     placeholder: { bg: '#D4C5A0', text: '#1a1a1a' },
@@ -90,8 +93,9 @@ const items = [
     id: 9, name: 'S55 Cap — Navy / Red', tag: 'DROP 001',
     price: 105,
     images: [
-      { label: 'Sides', image: '/images/cap-navy-red-sides.png' },
+      { label: 'Sides',     image: '/images/cap-navy-red-sides.png' },
       { label: 'All Views', image: '/images/cap-navy-red-views.png' },
+      { label: 'Packaging', image: '/images/packaging-cap.png' },
     ],
     desc: 'Navy crown, red brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #050.',
     placeholder: { bg: '#132B57', text: '#ffffff' },
@@ -101,8 +105,9 @@ const items = [
     id: 10, name: 'S55 Cap — Olive / Black', tag: 'DROP 001',
     price: 105,
     images: [
-      { label: 'Sides', image: '/images/cap-olive-black-sides.png' },
+      { label: 'Sides',     image: '/images/cap-olive-black-sides.png' },
       { label: 'All Views', image: '/images/cap-olive-black-views.png' },
+      { label: 'Packaging', image: '/images/packaging-cap.png' },
     ],
     desc: 'Olive crown, black brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #100.',
     placeholder: { bg: '#4a5240', text: '#ffffff' },

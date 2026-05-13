@@ -172,7 +172,7 @@ const products = [
 
 function ProductCard({ product, onInquire }) {
   const [hovered, setHovered] = useState(false)
-  const images = product.images || [{ label: 'Front', image: product.image }, { label: 'Back', image: product.image }]
+  const images = product.images || [{ label: 'Front', image: product.image }, { label: 'Back', image: product.image }, { label: 'Packaging', image: '/images/packaging-tee.png' }]
 
   return (
     <div
