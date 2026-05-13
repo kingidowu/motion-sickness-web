@@ -62,7 +62,7 @@ function brandedEmail(content) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end()
 
-  const { name, email, product, size, quantity, ogMember, message } = req.body
+  const { name, email, product, size, quantity, ogMember, message, shippingAddress, shippingOption } = req.body
 
   const confirmationHtml = brandedEmail(`
     <!-- Headline -->
@@ -108,6 +108,16 @@ export default async function handler(req, res) {
                   <td style="font-family:Arial,sans-serif;font-size:11px;color:#555;letter-spacing:1px;text-transform:uppercase;padding-bottom:${message ? '12px' : '0'};">Quantity</td>
                   <td style="font-family:Arial,sans-serif;font-size:13px;color:#ffffff;padding-bottom:${message ? '12px' : '0'};">${quantity}</td>
                 </tr>
+                ${shippingAddress ? `
+                <tr>
+                  <td style="font-family:Arial,sans-serif;font-size:11px;color:#555;letter-spacing:1px;text-transform:uppercase;padding-bottom:12px;">Ship To</td>
+                  <td style="font-family:Arial,sans-serif;font-size:13px;color:#ffffff;padding-bottom:12px;">${shippingAddress}</td>
+                </tr>` : ''}
+                ${shippingOption ? `
+                <tr>
+                  <td style="font-family:Arial,sans-serif;font-size:11px;color:#555;letter-spacing:1px;text-transform:uppercase;padding-bottom:12px;">Shipping</td>
+                  <td style="font-family:Arial,sans-serif;font-size:13px;color:#CC0000;padding-bottom:12px;">${shippingOption}</td>
+                </tr>` : ''}
                 ${message ? `
                 <tr>
                   <td style="font-family:Arial,sans-serif;font-size:11px;color:#555;letter-spacing:1px;text-transform:uppercase;">Notes</td>
@@ -169,6 +179,8 @@ export default async function handler(req, res) {
     <td style="padding:10px 0;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;">OG Member</td>
     <td style="padding:10px 0;font-size:13px;color:${ogMember ? '#CC0000' : '#555'}">${ogMember ? 'YES — Free pack' : 'No'}</td>
   </tr>
+  ${shippingAddress ? `<tr style="border-bottom:1px solid #222;"><td style="padding:10px 0;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;width:120px;">Ship To</td><td style="padding:10px 0;font-size:13px;">${shippingAddress}</td></tr>` : ''}
+  ${shippingOption ? `<tr style="border-bottom:1px solid #222;"><td style="padding:10px 0;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;">Shipping</td><td style="padding:10px 0;font-size:13px;color:#CC0000;">${shippingOption}</td></tr>` : ''}
   ${message ? `<tr><td style="padding:10px 0;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;">Notes</td><td style="padding:10px 0;font-size:13px;color:#aaa;">${message}</td></tr>` : ''}
 </table>
 </body></html>`
