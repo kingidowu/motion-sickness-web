@@ -8,6 +8,7 @@ import Story from './components/Story'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Inquiry from './components/Inquiry'
+import Checkout from './components/Checkout'
 import SignupPopup from './components/SignupPopup'
 import AdminPage from './components/AdminPage'
 import AIStylist from './components/AIStylist'
@@ -54,7 +55,7 @@ export default function App() {
       <Contact />
       <Footer />
       {inquiryItem && (
-        <Inquiry prefilled={inquiryItem} onClose={() => setInquiryItem(null)} />
+        <Checkout item={inquiryItem} onClose={() => setInquiryItem(null)} />
       )}
       <SignupPopup />
       <AIStylist />
