@@ -124,7 +124,7 @@ Respond as JSON: { "subject": "...", "html": "..." }`
   const results = await Promise.allSettled(
     recipients.map(email =>
       resend.emails.send({
-        from: 'Motion Sickness <support@motionsickness.shop>',
+        from: 'Motion Sickness by S55 <s55@flowsource.cloud>',
         to: email,
         subject,
         html: branded,

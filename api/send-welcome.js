@@ -83,7 +83,7 @@ export default async function handler(req, res) {
     <tr>
       <td style="padding:0 0 32px 0;">
         <p style="margin:0;font-family:Arial,sans-serif;font-size:14px;color:#888;line-height:1.9;">
-          Hey ${name} â€”<br><br>
+          Hey ${name} â€?br><br>
           ${isInstagram
             ? "Your follow means everything. We'll verify your post and send your <strong style=\"color:#fff;\">10% discount code</strong> within 24 hours. Stay close."
             : "You're now locked in for Drop 002 early access. Use code <strong style=\"color:#ffffff;\">EARLY10</strong> for 10% off your first order the moment Drop 002 goes live. Limited pieces. No restock."
@@ -100,7 +100,7 @@ export default async function handler(req, res) {
             <td style="padding:24px 28px;">
               <p style="margin:0 0 12px 0;font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;color:#CC0000;text-transform:uppercase;">What's next</p>
               <p style="margin:0 0 16px 0;font-family:Arial,sans-serif;font-size:13px;color:#666;line-height:1.85;">
-                Drop 002 launches in 2 months. Every piece is limited. There is no restock. You'll get the link before anyone else â€” before it hits Instagram.
+                Drop 002 launches in 2 months. Every piece is limited. There is no restock. You'll get the link before anyone else â€?before it hits Instagram.
               </p>
               <p style="margin:0;font-family:Arial,sans-serif;font-size:11px;color:#444;line-height:1.6;">
                 Drop 001 is live now at <a href="https://motionsickness.shop" style="color:#CC0000;text-decoration:none;">motionsickness.shop</a>
@@ -123,17 +123,17 @@ export default async function handler(req, res) {
 
   try {
     await resend.emails.send({
-      from: 'Motion Sickness <support@motionsickness.shop>',
+      from: 'Motion Sickness by S55 <s55@flowsource.cloud>',
       to: email,
       subject: isInstagram
-        ? 'Thanks for the support â€” your code is coming.'
+        ? 'Thanks for the support â€?your code is coming.'
         : "You're in. Drop 002 early access confirmed.",
       html: welcomeHtml,
     })
 
     await resend.emails.send({
-      from: 'Motion Sickness <support@motionsickness.shop>',
-      to: 'support@motionsickness.shop',
+      from: 'Motion Sickness by S55 <s55@flowsource.cloud>',
+      to: 'timiidowu@gmail.com',
       subject: `New signup: ${name} (${source})`,
       html: `<div style="font-family:sans-serif;padding:24px;background:#111;color:#fff;max-width:480px;">
         <p style="color:#CC0000;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin:0 0 16px;">New Signup</p>

@@ -15,7 +15,7 @@ const CARRIER_NAMES = {
 // Register tracking number with 17track API
 async function register17track(trackingNumber, carrier) {
   const key = process.env.TRACK17_API_KEY
-  if (!key) return // optional â€” tracking link still works without registration
+  if (!key) return // optional â€?tracking link still works without registration
   try {
     await fetch('https://api.17track.net/track/v2.2/register', {
       method: 'POST',
@@ -81,7 +81,7 @@ export default async function handler(req, res) {
       <tr>
         <td style="padding:0 0 32px 0;">
           <p style="margin:0;font-family:Arial,sans-serif;font-size:14px;color:#888;line-height:1.9;">
-            Hey ${name} â€”<br><br>
+            Hey ${name} â€?br><br>
             Your order has shipped. Track it live with the button below.${estimatedDelivery ? ` Estimated delivery: <strong style="color:#fff;">${estimatedDelivery}</strong>.` : ''} Stay close.
           </p>
         </td>
@@ -136,9 +136,9 @@ export default async function handler(req, res) {
 
   try {
     await resend.emails.send({
-      from: 'Motion Sickness <support@motionsickness.shop>',
+      from: 'Motion Sickness by S55 <s55@flowsource.cloud>',
       to: email,
-      subject: `Your order shipped â€” Track it now`,
+      subject: `Your order shipped â€?Track it now`,
       html,
     })
 

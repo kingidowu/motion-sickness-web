@@ -72,7 +72,7 @@ export default async function handler(req, res) {
           Inquiry received.
         </h1>
         <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;color:#555;letter-spacing:1px;">
-          We'll be in touch within 24â€“48 hours.
+          We'll be in touch within 24â€?8 hours.
         </p>
       </td>
     </tr>
@@ -81,7 +81,7 @@ export default async function handler(req, res) {
     <tr>
       <td style="padding:0 0 32px 0;">
         <p style="margin:0;font-family:Arial,sans-serif;font-size:14px;color:#888;line-height:1.9;">
-          Hey ${name} â€”<br><br>
+          Hey ${name} â€?br><br>
           We've received your inquiry for <strong style="color:#ffffff;">${product}</strong>. A member of the S55 team will reach out with payment and shipping details.
           ${ogMember ? '<br><br><strong style="color:#CC0000;">OG Member status noted.</strong> Your cap + tank pack is on us. FREE 99.' : ''}
         </p>
@@ -139,7 +139,7 @@ export default async function handler(req, res) {
             <td style="padding:20px 28px;">
               <p style="margin:0 0 6px 0;font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;color:#CC0000;text-transform:uppercase;">OG Member Perk</p>
               <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;color:#888;line-height:1.7;">
-                OG Cap + Tank Top included â€” FREE 99. No charge. You were there from the beginning.
+                OG Cap + Tank Top included â€?FREE 99. No charge. You were there from the beginning.
               </p>
             </td>
           </tr>
@@ -177,7 +177,7 @@ export default async function handler(req, res) {
   </tr>
   <tr style="border-bottom:1px solid #222;">
     <td style="padding:10px 0;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;">OG Member</td>
-    <td style="padding:10px 0;font-size:13px;color:${ogMember ? '#CC0000' : '#555'}">${ogMember ? 'YES â€” Free pack' : 'No'}</td>
+    <td style="padding:10px 0;font-size:13px;color:${ogMember ? '#CC0000' : '#555'}">${ogMember ? 'YES â€?Free pack' : 'No'}</td>
   </tr>
   ${shippingAddress ? `<tr style="border-bottom:1px solid #222;"><td style="padding:10px 0;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;width:120px;">Ship To</td><td style="padding:10px 0;font-size:13px;">${shippingAddress}</td></tr>` : ''}
   ${shippingOption ? `<tr style="border-bottom:1px solid #222;"><td style="padding:10px 0;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;">Shipping</td><td style="padding:10px 0;font-size:13px;color:#CC0000;">${shippingOption}</td></tr>` : ''}
@@ -187,16 +187,16 @@ export default async function handler(req, res) {
 
   try {
     await resend.emails.send({
-      from: 'Motion Sickness <support@motionsickness.shop>',
+      from: 'Motion Sickness by S55 <s55@flowsource.cloud>',
       to: email,
-      subject: `Inquiry received â€” ${product}`,
+      subject: `Inquiry received â€?${product}`,
       html: confirmationHtml,
     })
 
     await resend.emails.send({
-      from: 'Motion Sickness <support@motionsickness.shop>',
-      to: 'support@motionsickness.shop',
-      subject: `New inquiry: ${product} â€” ${name}`,
+      from: 'Motion Sickness by S55 <s55@flowsource.cloud>',
+      to: 'timiidowu@gmail.com',
+      subject: `New inquiry: ${product} â€?${name}`,
       html: adminHtml,
     })
 
