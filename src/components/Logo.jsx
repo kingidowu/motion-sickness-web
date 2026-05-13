@@ -54,26 +54,17 @@ function CompassStar({ size = 32, color = '#ffffff' }) {
 
 function S55Monogram({ size = 48, color = '#ffffff' }) {
   return (
-    <svg width={size} height={size * 1.1} viewBox="0 0 60 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size * 0.6} viewBox="0 0 90 54" fill="none" xmlns="http://www.w3.org/2000/svg">
       <text
-        x="30" y="48"
+        x="45" y="44"
         textAnchor="middle"
         fontFamily="'Cormorant Garamond', Georgia, serif"
-        fontSize="58"
-        fontWeight="600"
+        fontSize="52"
+        fontWeight="700"
         fontStyle="italic"
         fill={color}
-        letterSpacing="-4"
-      >S</text>
-      <text
-        x="42" y="52"
-        textAnchor="middle"
-        fontFamily="'Cormorant Garamond', Georgia, serif"
-        fontSize="28"
-        fontWeight="600"
-        fill={color}
-        opacity="0.9"
-      >55</text>
+        letterSpacing="2"
+      >S55</text>
     </svg>
   )
 }
