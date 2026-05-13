@@ -31,6 +31,8 @@ export default function AdminPage() {
   useEffect(() => {
     if (!authed || !supabase) return
     setLoading(true)
+
+    // Initial load
     Promise.all([
       supabase.from('ms_signups').select('*').order('created_at', { ascending: false }),
       supabase.from('ms_visitors').select('*').order('created_at', { ascending: false }).limit(500),
@@ -41,6 +43,28 @@ export default function AdminPage() {
       setInquiries(i.data || [])
       setLoading(false)
     })
+
+    // Real-time subscriptions
+    const signupSub = supabase.channel('rt-signups')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'ms_signups' },
+        payload => setSignups(prev => [payload.new, ...prev]))
+      .subscribe()
+
+    const visitorSub = supabase.channel('rt-visitors')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'ms_visitors' },
+        payload => setVisitors(prev => [payload.new, ...prev]))
+      .subscribe()
+
+    const inquirySub = supabase.channel('rt-inquiries')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'ms_inquiries' },
+        payload => setInquiries(prev => [payload.new, ...prev]))
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(signupSub)
+      supabase.removeChannel(visitorSub)
+      supabase.removeChannel(inquirySub)
+    }
   }, [authed])
 
   const exportCSV = (data, filename) => {
@@ -82,8 +106,12 @@ export default function AdminPage() {
       <div style={{ background: '#0d0d0d', borderBottom: '1px solid #1e1e1e', padding: '20px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
           <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '20px', letterSpacing: '4px', color: '#fff' }}>MOTION SICKNESS · ADMIN</p>
-          <p style={{ fontSize: '10px', color: '#555', letterSpacing: '2px' }}>S55 LLC · Dashboard</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00cc44', display: 'inline-block', animation: 'pulse-dot 2s infinite' }} />
+            <p style={{ fontSize: '10px', color: '#555', letterSpacing: '2px' }}>S55 LLC · Live Dashboard</p>
+          </div>
         </div>
+        <style>{`@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }`}</style>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           <button onClick={() => exportCSV(activeData, `ms_${tab}_${Date.now()}.csv`)} style={{ padding: '8px 20px', background: 'transparent', border: '1px solid #333', color: '#888', fontSize: '9px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer' }}>
             Export CSV
