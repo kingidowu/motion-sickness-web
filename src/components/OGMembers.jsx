@@ -117,46 +117,23 @@ export default function OGMembers({ onInquire }) {
           </div>
         </div>
 
-        {/* Right — product display cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px' }}>
-          {/* Cap card */}
-          <div onClick={() => setLightbox({ image: '/images/cap-og.png', name: 'OG Cap' })} style={{
-            background: '#D4C5A0',
-            aspectRatio: '3/4',
+        {/* Right — OG Members promo */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+          {/* Full promo image */}
+          <div onClick={() => setLightbox({ image: '/images/ladies-tank.png', name: 'OG Members' })} style={{
+            background: '#1a1a1a',
             position: 'relative',
             overflow: 'hidden',
             cursor: 'zoom-in',
+            borderRadius: '2px',
           }}>
-            <img src="/images/cap-og.png" alt="OG Cap" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src="/images/ladies-tank.png" alt="OG Members" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             <div style={{
               position: 'absolute', top: '12px', left: '12px',
               background: 'var(--black)', color: 'var(--white)',
               padding: '3px 8px',
               fontSize: '8px', fontWeight: 700, letterSpacing: '2px',
-            }}>OG CAP</div>
-            <div style={{
-              position: 'absolute', bottom: '12px', right: '12px',
-              background: 'var(--red)', color: 'var(--white)',
-              padding: '3px 8px',
-              fontSize: '8px', fontWeight: 700, letterSpacing: '2px',
-            }}>001/OG</div>
-          </div>
-
-          {/* Tank top card */}
-          <div onClick={() => setLightbox({ image: '/images/ladies-tank.png', name: 'Ladies Tank Top' })} style={{
-            background: '#F2EFE4',
-            aspectRatio: '3/4',
-            position: 'relative',
-            overflow: 'hidden',
-            cursor: 'zoom-in',
-          }}>
-            <img src="/images/ladies-tank.png" alt="Ladies Tank Top" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <div style={{
-              position: 'absolute', top: '12px', left: '12px',
-              background: 'var(--black)', color: 'var(--white)',
-              padding: '3px 8px',
-              fontSize: '8px', fontWeight: 700, letterSpacing: '2px',
-            }}>LADIES TANK</div>
+            }}>OG MEMBERS</div>
             <div style={{
               position: 'absolute', bottom: '12px', right: '12px',
               background: 'var(--red)', color: 'var(--white)',
@@ -165,9 +142,8 @@ export default function OGMembers({ onInquire }) {
             }}>FREE 99</div>
           </div>
 
-          {/* Bottom tagline card — full width */}
+          {/* Bottom tagline */}
           <div style={{
-            gridColumn: '1 / -1',
             background: 'var(--black-card)',
             border: '1px solid #1a1a1a',
             padding: '20px',
