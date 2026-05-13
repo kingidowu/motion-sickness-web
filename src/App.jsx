@@ -10,6 +10,7 @@ import Footer from './components/Footer'
 import Inquiry from './components/Inquiry'
 import SignupPopup from './components/SignupPopup'
 import AdminPage from './components/AdminPage'
+import AIStylist from './components/AIStylist'
 import { supabase } from './lib/supabase'
 
 function useVisitorTracking() {
@@ -45,6 +46,7 @@ export default function App() {
         <Inquiry prefilled={inquiryItem} onClose={() => setInquiryItem(null)} />
       )}
       <SignupPopup />
+      <AIStylist />
     </div>
   )
 }

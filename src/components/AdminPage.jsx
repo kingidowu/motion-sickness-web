@@ -13,6 +13,71 @@ function StatBox({ label, value, sub }) {
   )
 }
 
+function CampaignSender({ signups }) {
+  const [segment, setSegment] = useState('all')
+  const [topic, setTopic] = useState('')
+  const [sending, setSending] = useState(false)
+  const [result, setResult] = useState(null)
+
+  const segments = {
+    all: signups.map(s => s.email),
+    instagram: signups.filter(s => s.source === 'instagram_follow').map(s => s.email),
+    signup: signups.filter(s => s.source === 'popup_signup').map(s => s.email),
+  }
+
+  const send = async () => {
+    if (!topic || !segments[segment].length) return
+    setSending(true)
+    setResult(null)
+    try {
+      const res = await fetch('/api/ai-campaign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ segment, topic, recipients: segments[segment] }),
+      })
+      const data = await res.json()
+      setResult(data)
+    } catch { setResult({ error: 'Failed to send' }) }
+    setSending(false)
+  }
+
+  return (
+    <div style={{ background: '#111', border: '1px solid #1e1e1e', padding: '28px', marginBottom: '32px' }}>
+      <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '3px', color: 'var(--red)', textTransform: 'uppercase', marginBottom: '20px' }}>
+        ✦ AI Campaign Sender
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+        <div>
+          <p style={{ fontSize: '9px', color: '#555', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '6px' }}>Segment</p>
+          <select value={segment} onChange={e => setSegment(e.target.value)}
+            style={{ width: '100%', background: '#0d0d0d', border: '1px solid #222', color: '#fff', padding: '10px 12px', fontSize: '12px', fontFamily: "'Inter', sans-serif", outline: 'none' }}>
+            <option value="all">All Signups ({segments.all.length})</option>
+            <option value="instagram">Instagram Followers ({segments.instagram.length})</option>
+            <option value="signup">Popup Signups ({segments.signup.length})</option>
+          </select>
+        </div>
+        <div>
+          <p style={{ fontSize: '9px', color: '#555', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '6px' }}>Message Topic</p>
+          <input value={topic} onChange={e => setTopic(e.target.value)} placeholder="e.g. Drop 002 coming soon, 2 months away"
+            style={{ width: '100%', background: '#0d0d0d', border: '1px solid #222', color: '#fff', padding: '10px 12px', fontSize: '12px', fontFamily: "'Inter', sans-serif", outline: 'none' }} />
+        </div>
+      </div>
+      <button onClick={send} disabled={sending || !topic || !segments[segment].length} style={{
+        padding: '11px 28px', background: sending ? '#333' : 'var(--red)', color: '#fff', border: 'none',
+        fontSize: '10px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', cursor: sending ? 'not-allowed' : 'pointer',
+      }}>
+        {sending ? 'AI Writing + Sending...' : `Send to ${segments[segment].length} recipients`}
+      </button>
+      {result && !result.error && (
+        <p style={{ marginTop: '12px', fontSize: '11px', color: '#00cc44' }}>
+          ✓ Sent {result.sent}/{result.total} emails · Subject: "{result.subject}"
+        </p>
+      )}
+      {result?.error && <p style={{ marginTop: '12px', fontSize: '11px', color: 'var(--red)' }}>✕ {result.error}</p>}
+    </div>
+  )
+}
+
 export default function AdminPage() {
   const [authed, setAuthed] = useState(false)
   const [pw, setPw] = useState('')
@@ -134,6 +199,8 @@ export default function AdminPage() {
               <StatBox label="Inquiries" value={inquiries.length} sub="Order inquiries" />
               <StatBox label="Instagram Follows" value={signups.filter(s => s.source === 'instagram_follow').length} sub="Via follow popup" />
             </div>
+
+            <CampaignSender signups={signups} />
 
             {/* Tabs */}
             <div style={{ display: 'flex', borderBottom: '1px solid #1e1e1e', marginBottom: '24px' }}>

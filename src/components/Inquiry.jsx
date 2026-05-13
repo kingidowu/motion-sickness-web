@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Logo from './Logo'
 import { supabase } from '../lib/supabase'
+import SizeRecommender from './SizeRecommender'
 
 const products = [
   'Heritage Crest Tee (Off-White)',
@@ -189,7 +190,10 @@ export default function Inquiry({ prefilled, onClose }) {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
             <div>
-              <label style={labelStyle}>Size</label>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <label style={labelStyle}>Size</label>
+                <SizeRecommender product={form.product} onSelect={s => set('size', s)} />
+              </div>
               <select style={{ ...inputStyle, cursor: 'pointer' }}
                 value={form.size} onChange={e => set('size', e.target.value)}
               >
