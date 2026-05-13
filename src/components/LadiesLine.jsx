@@ -16,7 +16,7 @@ const items = [
     price: 150, image: '/images/ladies-bra.png', image2: '/images/ladies-leggings.png',
     desc: 'Sports bra + leggings. Same colorway. Move With Motion.',
     placeholder: { bg: '#b8d4e8', text: '#1a1a1a' },
-    locked: false, isSet: true,
+    locked: true, isSet: true,
   },
   {
     id: 'l4', name: 'S55 Crop Track Jacket', tag: 'LADIES LINE',
@@ -30,7 +30,7 @@ const items = [
     price: 70, image: '/images/ladies-shorts.png',
     desc: 'Butter yellow. S55 mark. White piping trim.',
     placeholder: { bg: '#f0e87a', text: '#1a1a1a' },
-    locked: false,
+    locked: true,
   },
 ]
 

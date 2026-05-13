@@ -23,7 +23,7 @@ const items = [
     images: TEE_ANGLES('/images/tee-heritage.png'),
     desc: 'Built for movement, presence, and everyday wear.',
     placeholder: { bg: '#f0ebe0', text: '#1a1a1a' },
-    locked: false,
+    locked: true,
   },
   {
     id: 2, name: 'World Championship Tee', tag: 'DROP 001',
@@ -31,7 +31,7 @@ const items = [
     images: TEE_ANGLES('/images/tee-racing.png'),
     desc: 'Motion Sickness identity. S55 Racing detail.',
     placeholder: { bg: '#1a1a1a', text: '#F2EFE4' },
-    locked: false,
+    locked: true,
   },
   {
     id: 3, name: 'Houston Collegiate Tee', tag: 'DROP 001',
@@ -55,7 +55,7 @@ const items = [
     images: TEE_ANGLES('/images/tee-property.png'),
     desc: 'Property of Motion Sickness. Studio 55.',
     placeholder: { bg: '#2a2a2a', text: '#ffffff' },
-    locked: true,
+    locked: false,
   },
   {
     id: 6, name: 'Ringer Tee', tag: 'DROP 001',
@@ -69,8 +69,8 @@ const items = [
     id: 7, name: 'S55 Cap — All Black', tag: 'DROP 001',
     price: 105,
     images: [
+      { label: 'Front',     image: '/images/cap-all-black-views.png' },
       { label: 'Sides',     image: '/images/cap-all-black-sides.png' },
-      { label: 'All Views', image: '/images/cap-all-black-views.png' },
       { label: 'Packaging', image: '/images/packaging-cap.png' },
     ],
     desc: 'All black. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #001.',
@@ -81,8 +81,8 @@ const items = [
     id: 8, name: 'S55 Cap — Cream / Red', tag: 'DROP 001',
     price: 105,
     images: [
+      { label: 'Front',     image: '/images/cap-cream-red-views.png' },
       { label: 'Sides',     image: '/images/cap-cream-red-sides.png' },
-      { label: 'All Views', image: '/images/cap-cream-red-views.png' },
       { label: 'Packaging', image: '/images/packaging-cap.png' },
     ],
     desc: 'Cream crown, red brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #025.',
@@ -93,8 +93,8 @@ const items = [
     id: 9, name: 'S55 Cap — Navy / Red', tag: 'DROP 001',
     price: 105,
     images: [
+      { label: 'Front',     image: '/images/cap-navy-red-views.png' },
       { label: 'Sides',     image: '/images/cap-navy-red-sides.png' },
-      { label: 'All Views', image: '/images/cap-navy-red-views.png' },
       { label: 'Packaging', image: '/images/packaging-cap.png' },
     ],
     desc: 'Navy crown, red brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #050.',
@@ -105,12 +105,24 @@ const items = [
     id: 10, name: 'S55 Cap — Olive / Black', tag: 'DROP 001',
     price: 105,
     images: [
+      { label: 'Front',     image: '/images/cap-olive-black-views.png' },
       { label: 'Sides',     image: '/images/cap-olive-black-sides.png' },
-      { label: 'All Views', image: '/images/cap-olive-black-views.png' },
       { label: 'Packaging', image: '/images/packaging-cap.png' },
     ],
     desc: 'Olive crown, black brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #100.',
     placeholder: { bg: '#4a5240', text: '#ffffff' },
+    locked: false,
+  },
+  {
+    id: 11, name: 'Studio 55 Camp Shirt', tag: 'DROP 001',
+    price: 125,
+    images: [
+      { label: 'Front',     image: '/images/shirt-studio55.jpg' },
+      { label: 'Back',      image: '/images/shirt-studio55.jpg' },
+      { label: 'Packaging', image: '/images/packaging-tee.png' },
+    ],
+    desc: 'White camp collar. "Motion Sickness" stamp print back. S55 chest detail. Studio 55.',
+    placeholder: { bg: '#f5f5f5', text: '#1a1a1a' },
     locked: false,
   },
 ]
