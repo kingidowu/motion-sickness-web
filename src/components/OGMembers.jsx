@@ -1,6 +1,22 @@
+import { useState } from 'react'
 import Logo from './Logo'
 
+function Lightbox({ image, name, onClose }) {
+  const [scale, setScale] = useState(1)
+  return (
+    <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(0,0,0,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'zoom-out' }}>
+      <button onClick={onClose} style={{ position: 'absolute', top: '24px', right: '32px', background: 'none', border: 'none', color: '#fff', fontSize: '28px', cursor: 'pointer', zIndex: 2 }}>✕</button>
+      <div style={{ position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '12px', zIndex: 2 }}>
+        <button onClick={e => { e.stopPropagation(); setScale(s => Math.max(1, s - 0.5)) }} style={{ background: '#222', border: '1px solid #333', color: '#fff', width: '36px', height: '36px', fontSize: '18px', cursor: 'pointer' }}>−</button>
+        <button onClick={e => { e.stopPropagation(); setScale(s => Math.min(3, s + 0.5)) }} style={{ background: '#222', border: '1px solid #333', color: '#fff', width: '36px', height: '36px', fontSize: '18px', cursor: 'pointer' }}>+</button>
+      </div>
+      <img src={image} alt={name} onClick={e => e.stopPropagation()} style={{ maxWidth: '90vw', maxHeight: '90vh', objectFit: 'contain', transform: `scale(${scale})`, transition: 'transform 0.2s ease' }} />
+    </div>
+  )
+}
+
 export default function OGMembers({ onInquire }) {
+  const [lightbox, setLightbox] = useState(null)
   return (
     <section id="og-members" style={{
       background: 'var(--black)',
@@ -104,11 +120,12 @@ export default function OGMembers({ onInquire }) {
         {/* Right — product display cards */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px' }}>
           {/* Cap card */}
-          <div style={{
+          <div onClick={() => setLightbox({ image: '/images/cap-og.png', name: 'OG Cap' })} style={{
             background: '#D4C5A0',
             aspectRatio: '3/4',
             position: 'relative',
             overflow: 'hidden',
+            cursor: 'zoom-in',
           }}>
             <img src="/images/cap-og.png" alt="OG Cap" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             <div style={{
@@ -126,11 +143,12 @@ export default function OGMembers({ onInquire }) {
           </div>
 
           {/* Tank top card */}
-          <div style={{
+          <div onClick={() => setLightbox({ image: '/images/ladies-tank.png', name: 'Ladies Tank Top' })} style={{
             background: '#F2EFE4',
             aspectRatio: '3/4',
             position: 'relative',
             overflow: 'hidden',
+            cursor: 'zoom-in',
           }}>
             <img src="/images/ladies-tank.png" alt="Ladies Tank Top" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             <div style={{
@@ -172,6 +190,8 @@ export default function OGMembers({ onInquire }) {
           .og-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
         }
       `}</style>
+
+      {lightbox && <Lightbox image={lightbox.image} name={lightbox.name} onClose={() => setLightbox(null)} />}
     </section>
   )
 }
