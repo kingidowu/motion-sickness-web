@@ -98,8 +98,8 @@ function LadiesCard({ item, isUnlocked, onInquire, onUnlock }) {
 
         {/* Hover buy overlay */}
         {!locked && (
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 'calc(100% - 120px)', background: 'rgba(0,0,0,0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: hovered ? 1 : 0, transition: 'opacity 0.3s', zIndex: 8, pointerEvents: hovered ? 'auto' : 'none' }}>
-            <button onClick={e => { e.stopPropagation(); onInquire(item) }} style={{ background: '#fff', color: '#000', padding: '12px 32px', fontSize: '9px', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', border: 'none', cursor: 'pointer' }}>Inquire</button>
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 'calc(100% - 120px)', background: 'rgba(0,0,0,0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: hovered ? 1 : 0, transition: 'opacity 0.3s', zIndex: 8, pointerEvents: 'none' }}>
+            <button onClick={e => { e.stopPropagation(); onInquire(item) }} style={{ background: '#fff', color: '#000', padding: '12px 32px', fontSize: '9px', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', border: 'none', cursor: 'pointer', pointerEvents: 'auto' }}>Inquire</button>
           </div>
         )}
 

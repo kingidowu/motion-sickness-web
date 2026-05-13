@@ -66,7 +66,6 @@ const items = [
   },
   {
     id: 7, name: 'S55 Cap — All Black', tag: 'DROP 001',
-    productId: 'cap-all-black',
     price: 55,
     images: CAP_ANGLES('/images/cap-og.png'),
     desc: 'All black. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #001.',
@@ -75,7 +74,6 @@ const items = [
   },
   {
     id: 8, name: 'S55 Cap — Cream / Red', tag: 'DROP 001',
-    productId: 'cap-cream-red',
     price: 55,
     images: CAP_ANGLES('/images/cap-og.png'),
     desc: 'Cream crown, red brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #025.',
@@ -84,7 +82,6 @@ const items = [
   },
   {
     id: 9, name: 'S55 Cap — Navy / Red', tag: 'DROP 001',
-    productId: 'cap-navy-red',
     price: 55,
     images: CAP_ANGLES('/images/cap-og.png'),
     desc: 'Navy crown, red brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #050.',
@@ -93,7 +90,6 @@ const items = [
   },
   {
     id: 10, name: 'S55 Cap — Olive / Black', tag: 'DROP 001',
-    productId: 'cap-olive-black',
     price: 55,
     images: CAP_ANGLES('/images/cap-og.png'),
     desc: 'Olive crown, black brim. S55 logo front. Signature script left. "Motion Sickness by S55" right. Members Only strap. Numbered #100.',
@@ -245,12 +241,12 @@ function DropCard({ item, isUnlocked, onInquire, onUnlock }) {
             background: 'rgba(0,0,0,0.45)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             opacity: hovered ? 1 : 0, transition: 'opacity 0.3s', zIndex: 8,
-            pointerEvents: hovered ? 'auto' : 'none',
+            pointerEvents: 'none',
           }}>
             <button onClick={e => { e.stopPropagation(); onInquire(item) }} style={{
               background: '#fff', color: '#000', padding: '12px 32px',
               fontSize: '9px', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase',
-              border: 'none', cursor: 'pointer',
+              border: 'none', cursor: 'pointer', pointerEvents: 'auto',
             }}>Buy from Drop 001</button>
           </div>
         )}

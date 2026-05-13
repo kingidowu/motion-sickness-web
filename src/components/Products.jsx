@@ -208,12 +208,13 @@ function ProductCard({ product, onInquire }) {
         background: 'rgba(0,0,0,0.45)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         opacity: hovered ? 1 : 0, transition: 'opacity 0.3s', zIndex: 8,
-        pointerEvents: hovered ? 'auto' : 'none',
+        pointerEvents: 'none',
       }}>
         <button onClick={() => onInquire(product)} style={{
           background: 'var(--white)', color: 'var(--black)',
           padding: '12px 32px', fontSize: '9px', fontWeight: 700,
           letterSpacing: '3px', textTransform: 'uppercase', border: 'none', cursor: 'pointer',
+          pointerEvents: 'auto',
         }}>{product.ogFree ? 'Claim Free' : 'Order Now'}</button>
       </div>
 
