@@ -47,7 +47,7 @@ export default function Hero() {
           <img src="/images/logo.png" alt="Motion Sickness" style={{
             width: '180px', margin: '0 auto',
             opacity: 0.95,
-            filter: 'brightness(0) invert(1)',
+            mixBlendMode: 'screen',
           }} />
         </div>
 
