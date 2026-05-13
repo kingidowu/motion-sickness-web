@@ -101,11 +101,14 @@ export default function ProductViewer({ images, name, placeholder, locked }) {
               src={current.image}
               alt={`${name} — ${current.label}`}
               onError={e => { e.target.style.display = 'none' }}
+              onContextMenu={e => e.preventDefault()}
+              onDragStart={e => e.preventDefault()}
               style={{
                 position: 'absolute', inset: 0,
                 width: '100%', height: '100%',
                 objectFit: 'cover', zIndex: 1,
                 filter: locked ? 'blur(6px) brightness(0.35)' : 'none',
+                WebkitUserDrag: 'none',
               }}
             />
 
@@ -119,9 +122,35 @@ export default function ProductViewer({ images, name, placeholder, locked }) {
               }} />
             )}
 
+            {/* Watermark */}
+            <div style={{
+              position: 'absolute', inset: 0, zIndex: 4, pointerEvents: 'none',
+              overflow: 'hidden',
+            }}>
+              {[...Array(6)].map((_, i) => (
+                <div key={i} style={{
+                  position: 'absolute',
+                  top: `${-10 + i * 22}%`, left: '-20%',
+                  width: '140%',
+                  transform: 'rotate(-30deg)',
+                  display: 'flex', gap: '60px',
+                  whiteSpace: 'nowrap',
+                }}>
+                  {[...Array(4)].map((_, j) => (
+                    <span key={j} style={{
+                      fontFamily: "'Bebas Neue', sans-serif",
+                      fontSize: '10px', letterSpacing: '3px',
+                      color: 'rgba(255,255,255,0.07)',
+                      userSelect: 'none',
+                    }}>MOTION SICKNESS © S55</span>
+                  ))}
+                </div>
+              ))}
+            </div>
+
             {/* Edge vignette */}
             <div style={{
-              position: 'absolute', inset: 0, zIndex: 3, pointerEvents: 'none',
+              position: 'absolute', inset: 0, zIndex: 5, pointerEvents: 'none',
               boxShadow: 'inset 0 0 40px rgba(0,0,0,0.35)',
             }} />
           </div>
@@ -245,8 +274,20 @@ function LightboxTilt({ src, alt }) {
       }}>
         <img
           src={src} alt={alt}
-          style={{ width: '100%', maxHeight: '65vh', objectFit: 'contain', display: 'block' }}
+          onContextMenu={e => e.preventDefault()}
+          onDragStart={e => e.preventDefault()}
+          style={{ width: '100%', maxHeight: '65vh', objectFit: 'contain', display: 'block', WebkitUserDrag: 'none' }}
         />
+        {/* Watermark in lightbox */}
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+          {[...Array(8)].map((_, i) => (
+            <div key={i} style={{ position: 'absolute', top: `${-5 + i * 15}%`, left: '-20%', width: '140%', transform: 'rotate(-30deg)', display: 'flex', gap: '60px', whiteSpace: 'nowrap' }}>
+              {[...Array(4)].map((_, j) => (
+                <span key={j} style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '12px', letterSpacing: '3px', color: 'rgba(255,255,255,0.06)', userSelect: 'none' }}>MOTION SICKNESS © S55</span>
+              ))}
+            </div>
+          ))}
+        </div>
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
           background: `radial-gradient(circle at ${50 + tilt.y * 3}% ${50 - tilt.x * 3}%, rgba(255,255,255,0.1) 0%, transparent 60%)`,
