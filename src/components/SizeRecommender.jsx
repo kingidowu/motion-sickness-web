@@ -63,7 +63,7 @@ export default function SizeRecommender({ product, onSelect }) {
         {step === 0 && (
           <>
             <p style={{ fontSize: '12px', color: '#888', marginBottom: '20px' }}>What's your height?</p>
-            <input style={inputStyle} placeholder="e.g. 5'10\" or 178cm" value={form.height}
+            <input style={inputStyle} placeholder="e.g. 5ft 10in or 178cm" value={form.height}
               onChange={e => setForm(f => ({ ...f, height: e.target.value }))}
               onFocus={e => e.target.style.borderColor = '#CC0000'}
               onBlur={e => e.target.style.borderColor = '#222'} />

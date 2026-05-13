@@ -228,7 +228,7 @@ function DropCard({ item, isUnlocked, onInquire, onLightbox, onUnlock }) {
             onError={e => e.target.style.display = 'none'}
             style={{
               position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-              transform: hovered ? 'scale(1.05)' : 'scale(1)', transition: 'transform 0.6s ease', zIndex: 1,
+              transform: hovered ? 'scale(1.05)' : 'scale(1)', zIndex: 1,
               filter: locked ? 'blur(6px) brightness(0.4)' : 'none',
               transition: 'transform 0.6s ease, filter 0.4s ease',
             }}
