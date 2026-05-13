@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
-import Products from './components/Products'
+import Drop from './components/Drop'
 import OGMembers from './components/OGMembers'
 import Story from './components/Story'
 import Contact from './components/Contact'
@@ -15,7 +15,7 @@ export default function App() {
     <div style={{ minHeight: '100vh', background: 'var(--black)' }}>
       <Nav />
       <Hero />
-      <Products onInquire={setInquiryItem} />
+      <Drop onInquire={setInquiryItem} />
       <OGMembers onInquire={setInquiryItem} />
       <Story />
       <Contact />

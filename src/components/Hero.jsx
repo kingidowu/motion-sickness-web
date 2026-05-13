@@ -1,5 +1,3 @@
-import Logo from './Logo'
-
 export default function Hero() {
   return (
     <section style={{
@@ -10,167 +8,131 @@ export default function Hero() {
       alignItems: 'center',
       justifyContent: 'center',
       textAlign: 'center',
-      padding: '100px 24px 60px',
+      padding: '120px 24px 80px',
       position: 'relative',
       overflow: 'hidden',
     }}>
-      {/* Background texture overlay */}
+      {/* Background image */}
       <div style={{
         position: 'absolute', inset: 0,
-        backgroundImage: 'radial-gradient(ellipse at 50% 0%, rgba(204,0,0,0.08) 0%, transparent 60%)',
-        pointerEvents: 'none',
+        backgroundImage: 'url(/images/hero-bg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+        opacity: 0.18,
+        filter: 'grayscale(40%)',
+      }} />
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.7) 60%, rgba(8,8,8,1) 100%)',
       }} />
 
-      {/* Vertical text left */}
+      {/* Vertical side text */}
       <span style={{
         position: 'absolute', left: '24px', top: '50%',
         transform: 'translateY(-50%) rotate(-90deg)',
-        fontSize: '9px', fontWeight: 600, letterSpacing: '4px',
+        fontSize: '8px', fontWeight: 700, letterSpacing: '4px',
         color: 'var(--red)', textTransform: 'uppercase', whiteSpace: 'nowrap',
       }}>DISCIPLINE FUELS FREEDOM</span>
-
-      {/* Vertical text right */}
       <span style={{
         position: 'absolute', right: '24px', top: '50%',
         transform: 'translateY(-50%) rotate(90deg)',
-        fontSize: '9px', fontWeight: 600, letterSpacing: '4px',
+        fontSize: '8px', fontWeight: 700, letterSpacing: '4px',
         color: 'var(--red)', textTransform: 'uppercase', whiteSpace: 'nowrap',
       }}>FOCUS · PURPOSE · LIFESTYLE</span>
 
-      {/* Logo mark */}
-      <div style={{ marginBottom: '32px' }}>
-        <Logo size={80} color="#ffffff" />
-      </div>
+      {/* Content */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        {/* Logo image */}
+        <div style={{ marginBottom: '40px' }}>
+          <img src="/images/logo.png" alt="Motion Sickness" style={{
+            width: '180px', margin: '0 auto',
+            opacity: 0.95,
+            filter: 'brightness(0) invert(1)',
+          }} />
+        </div>
 
-      {/* Brand name */}
-      <p style={{
-        fontSize: '11px', fontWeight: 600, letterSpacing: '6px',
-        color: 'var(--grey)', textTransform: 'uppercase', marginBottom: '48px',
-      }}>MOTION SICKNESS</p>
-
-      {/* Red divider */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '40px' }}>
-        <div style={{ width: '60px', height: '1px', background: 'var(--red)' }} />
-        <Logo size={14} color="#CC0000" />
-        <div style={{ width: '60px', height: '1px', background: 'var(--red)' }} />
-      </div>
-
-      {/* Main manifesto */}
-      <div style={{ marginBottom: '16px' }}>
+        {/* Brand name */}
         <h1 style={{
-          fontFamily: "'Cormorant Garamond', serif",
-          fontSize: 'clamp(64px, 12vw, 140px)',
-          fontWeight: 600,
-          lineHeight: 0.9,
-          letterSpacing: '-2px',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 'clamp(36px, 8vw, 96px)',
+          fontWeight: 300,
+          letterSpacing: 'clamp(6px, 2vw, 20px)',
           color: 'var(--white)',
-        }}>
-          WORK<br />HARD
-        </h1>
-      </div>
-
-      <div style={{
-        fontFamily: "'Bebas Neue', sans-serif",
-        fontSize: 'clamp(28px, 4vw, 48px)',
-        letterSpacing: '6px',
-        color: 'var(--red)',
-        marginBottom: '16px',
-      }}>✕</div>
-
-      <div style={{ marginBottom: '16px' }}>
-        <h1 style={{
-          fontFamily: "'Cormorant Garamond', serif",
-          fontSize: 'clamp(64px, 12vw, 140px)',
-          fontWeight: 600,
-          lineHeight: 0.9,
-          letterSpacing: '-2px',
-          color: 'var(--white)',
-        }}>
-          PLAY<br />HARDER
-        </h1>
-      </div>
-
-      <div style={{
-        fontFamily: "'Bebas Neue', sans-serif",
-        fontSize: 'clamp(28px, 4vw, 48px)',
-        letterSpacing: '6px',
-        color: 'var(--red)',
-        marginBottom: '16px',
-      }}>=</div>
-
-      <div style={{ marginBottom: '48px' }}>
-        <h1 style={{
-          fontFamily: "'Cormorant Garamond', serif",
-          fontSize: 'clamp(64px, 12vw, 140px)',
-          fontWeight: 600,
-          lineHeight: 0.9,
-          letterSpacing: '-2px',
-          color: 'var(--white)',
-        }}>
-          BALANCE
-        </h1>
-      </div>
-
-      {/* Divider */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '48px' }}>
-        <div style={{ width: '60px', height: '1px', background: 'var(--red)' }} />
-        <Logo size={14} color="#CC0000" />
-        <div style={{ width: '60px', height: '1px', background: 'var(--red)' }} />
-      </div>
-
-      <p style={{
-        fontSize: '10px', fontWeight: 600, letterSpacing: '4px',
-        color: 'var(--grey)', textTransform: 'uppercase',
-        marginBottom: '40px',
-      }}>DISCIPLINE FUELS FREEDOM</p>
-
-      {/* CTA buttons */}
-      <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <a href="#shop" style={{
-          display: 'inline-block',
-          background: 'var(--white)',
-          color: 'var(--black)',
-          padding: '14px 40px',
-          fontSize: '11px',
-          fontWeight: 700,
-          letterSpacing: '3px',
           textTransform: 'uppercase',
-          transition: 'background 0.2s',
-        }}
-        onMouseEnter={e => e.target.style.background = 'var(--cream)'}
-        onMouseLeave={e => e.target.style.background = 'var(--white)'}
-        >Shop Now</a>
+          lineHeight: 1,
+          marginBottom: '32px',
+        }}>MOTION SICKNESS</h1>
 
-        <a href="#og-members" style={{
+        {/* Slogan */}
+        <p style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: 'clamp(18px, 3vw, 28px)',
+          fontStyle: 'italic',
+          color: 'var(--grey-light)',
+          marginBottom: '8px',
+          letterSpacing: '1px',
+        }}>Move with motion.</p>
+        <p style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: 'clamp(18px, 3vw, 28px)',
+          fontStyle: 'italic',
+          color: 'var(--grey-light)',
+          marginBottom: '48px',
+          letterSpacing: '1px',
+        }}>The rest will play out.</p>
+
+        {/* Drop badge */}
+        <div style={{
           display: 'inline-block',
           border: '1px solid var(--red)',
-          color: 'var(--red)',
-          padding: '14px 40px',
-          fontSize: '11px',
-          fontWeight: 700,
-          letterSpacing: '3px',
+          padding: '6px 20px',
+          marginBottom: '32px',
+          fontSize: '9px', fontWeight: 700, letterSpacing: '4px',
+          color: 'var(--red)', textTransform: 'uppercase',
+        }}>DROP 001 AVAILABLE NOW</div>
+
+        {/* CTA */}
+        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a href="#drop" style={{
+            display: 'inline-block',
+            background: 'var(--white)', color: 'var(--black)',
+            padding: '16px 48px',
+            fontSize: '11px', fontWeight: 700, letterSpacing: '3px',
+            textTransform: 'uppercase', transition: 'background 0.2s',
+          }}
+          onMouseEnter={e => e.target.style.background = '#e0e0e0'}
+          onMouseLeave={e => e.target.style.background = 'var(--white)'}
+          >Shop Drop 001</a>
+
+          <a href="#og-members" style={{
+            display: 'inline-block',
+            border: '1px solid var(--red)', color: 'var(--red)',
+            padding: '16px 48px',
+            fontSize: '11px', fontWeight: 700, letterSpacing: '3px',
+            textTransform: 'uppercase', transition: 'all 0.2s',
+          }}
+          onMouseEnter={e => { e.target.style.background = 'var(--red)'; e.target.style.color = '#fff' }}
+          onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--red)' }}
+          >OG Members</a>
+        </div>
+
+        {/* Subtext */}
+        <p style={{
+          marginTop: '40px',
+          fontSize: '11px', color: '#555', letterSpacing: '2px',
           textTransform: 'uppercase',
-          transition: 'all 0.2s',
-        }}
-        onMouseEnter={e => { e.target.style.background = 'var(--red)'; e.target.style.color = 'var(--white)' }}
-        onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--red)' }}
-        >OG Members</a>
+        }}>A streetwear brand by S55 · Limited pieces · No guaranteed restock</p>
       </div>
 
       {/* Scroll indicator */}
       <div style={{
         position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)',
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
-        color: 'var(--grey)', fontSize: '9px', letterSpacing: '3px', textTransform: 'uppercase',
+        color: '#444', fontSize: '8px', letterSpacing: '3px', textTransform: 'uppercase',
       }}>
         <span>Scroll</span>
-        <div style={{ width: '1px', height: '40px', background: 'var(--black-border)', animation: 'scrollPulse 2s ease-in-out infinite' }} />
-        <style>{`
-          @keyframes scrollPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-          }
-        `}</style>
+        <div style={{ width: '1px', height: '40px', background: '#222', animation: 'pulse 2s ease-in-out infinite' }} />
+        <style>{`@keyframes pulse { 0%,100%{opacity:0.2} 50%{opacity:1} }`}</style>
       </div>
     </section>
   )
