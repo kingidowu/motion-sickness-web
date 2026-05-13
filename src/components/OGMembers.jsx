@@ -187,7 +187,7 @@ export default function OGMembers({ onInquire }) {
 
       <style>{`
         @media (max-width: 768px) {
-          .og-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .og-grid { grid-template-columns: 1fr !important; gap: 40px !important; padding: 48px 20px !important; }
         }
       `}</style>
 

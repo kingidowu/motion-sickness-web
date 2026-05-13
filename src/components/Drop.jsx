@@ -345,7 +345,7 @@ export default function Drop({ onInquire }) {
   const unlock = (id) => setUnlockedIds(prev => [...prev, id])
 
   return (
-    <section id="drop" style={{ background: 'var(--black)', padding: '100px 40px', borderTop: '1px solid #111' }}>
+    <section id="drop" className="section-pad" style={{ background: 'var(--black)', padding: '100px 40px', borderTop: '1px solid #111' }}>
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
         {/* Drop header */}

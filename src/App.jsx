@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Drop from './components/Drop'
+import LadiesLine from './components/LadiesLine'
 import OGMembers from './components/OGMembers'
 import Story from './components/Story'
 import Contact from './components/Contact'
@@ -16,6 +17,7 @@ export default function App() {
       <Nav />
       <Hero />
       <Drop onInquire={setInquiryItem} />
+      <LadiesLine onInquire={setInquiryItem} />
       <OGMembers onInquire={setInquiryItem} />
       <Story />
       <Contact />

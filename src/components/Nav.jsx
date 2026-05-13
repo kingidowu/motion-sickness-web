@@ -32,7 +32,7 @@ export default function Nav() {
         {/* Logo */}
         <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <Logo variant="mark" size={22} color="#ffffff" />
-          <span style={{
+          <span className="nav-brand" style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: '13px', fontWeight: 300,
             letterSpacing: '6px', color: '#ffffff',
@@ -108,6 +108,7 @@ export default function Nav() {
         @media (max-width: 768px) {
           .nav-desktop { display: none !important; }
           .nav-mobile-btn { display: flex !important; }
+          .nav-brand { font-size: 10px !important; letter-spacing: 3px !important; }
         }
       `}</style>
     </>

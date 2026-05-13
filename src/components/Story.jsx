@@ -30,7 +30,7 @@ const timeline = [
 
 export default function Story() {
   return (
-    <section id="story" style={{ background: 'var(--black)', padding: '100px 40px', borderTop: '1px solid var(--black-border)' }}>
+    <section id="story" className="section-pad" style={{ background: 'var(--black)', padding: '100px 40px', borderTop: '1px solid var(--black-border)' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
 
         {/* Header */}

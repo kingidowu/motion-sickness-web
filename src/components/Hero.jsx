@@ -27,13 +27,13 @@ export default function Hero() {
       }} />
 
       {/* Vertical side text */}
-      <span style={{
+      <span className="hide-mobile" style={{
         position: 'absolute', left: '24px', top: '50%',
         transform: 'translateY(-50%) rotate(-90deg)',
         fontSize: '8px', fontWeight: 700, letterSpacing: '4px',
         color: 'var(--red)', textTransform: 'uppercase', whiteSpace: 'nowrap',
       }}>DISCIPLINE FUELS FREEDOM</span>
-      <span style={{
+      <span className="hide-mobile" style={{
         position: 'absolute', right: '24px', top: '50%',
         transform: 'translateY(-50%) rotate(90deg)',
         fontSize: '8px', fontWeight: 700, letterSpacing: '4px',

@@ -25,7 +25,7 @@ export default function Footer() {
         <p style={{ color: '#666', fontSize: '12px', marginBottom: '24px' }}>
           100 pieces. Once it's gone, the next drop is 2 months out. No restocks.
         </p>
-        <div style={{ display: 'flex', gap: '0', maxWidth: '440px', margin: '0 auto' }}>
+        <div className="email-bar" style={{ display: 'flex', gap: '0', maxWidth: '440px', margin: '0 auto' }}>
           <input
             type="email"
             placeholder="your@email.com"
@@ -35,7 +35,7 @@ export default function Footer() {
               borderRight: 'none',
               color: '#fff', fontSize: '13px',
               fontFamily: "'Inter', sans-serif",
-              outline: 'none',
+              outline: 'none', minWidth: 0,
             }}
           />
           <button style={{
@@ -142,7 +142,9 @@ export default function Footer() {
 
       <style>{`
         @media (max-width: 768px) {
-          .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; padding: 40px 20px !important; }
+          .email-bar { max-width: 100% !important; flex-direction: column; }
+          .email-bar input { border-right: 1px solid #222 !important; border-bottom: none !important; }
         }
       `}</style>
     </footer>
